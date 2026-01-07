@@ -1,0 +1,37 @@
+---
+---
+
+<div class="search-container">
+  <input
+    type="text"
+    id="search-input"
+    class="search-input"
+    placeholder="Search articles..."
+    aria-label="Search articles"
+  />
+</div>
+
+<script>
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const articles = document.querySelectorAll('.article-card');
+
+  searchInput?.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+
+    articles.forEach((article) => {
+      const title = article.querySelector('.article-title')?.textContent?.toLowerCase() || '';
+      const description = article.querySelector('.article-description')?.textContent?.toLowerCase() || '';
+      const tags = article.querySelector('.article-tags')?.textContent?.toLowerCase() || '';
+
+      const matches = title.includes(searchTerm) ||
+                     description.includes(searchTerm) ||
+                     tags.includes(searchTerm);
+
+      if (matches || searchTerm === '') {
+        (article as HTMLElement).style.display = '';
+      } else {
+        (article as HTMLElement).style.display = 'none';
+      }
+    });
+  });
+</script>
