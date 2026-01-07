@@ -4,22 +4,22 @@ import ArticleCard from '../components/ArticleCard.astro';
 import SearchBar from '../components/SearchBar.astro';
 import Pagination from '../components/Pagination.astro';
 
-const POSTS_PER_PAGE = 9;
-const currentPage = 1;
+export async function getStaticPaths({ paginate }: any) {
+  const allPosts = await Astro.glob('./posts/*.md');
 
-const allPosts = await Astro.glob('./posts/*.md');
+  const sortedPosts = allPosts
+    .filter(post => post.frontmatter?.pubDate)
+    .sort((a, b) => {
+      return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
+    });
 
-const sortedPosts = allPosts
-  .filter(post => post.frontmatter?.pubDate)
-  .sort((a, b) => {
-    return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
-  });
+  return paginate(sortedPosts, { pageSize: 9 });
+}
 
-const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
-const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
+const { page } = Astro.props;
 ---
 
-<BaseLayout title="Home - My Blog" description="Read the latest articles on my blog">
+<BaseLayout title={`Page ${page.currentPage} - My Blog`} description="Read the latest articles on my blog">
   <div class="home-container">
     <div class="home-header">
       <h1>Latest Articles</h1>
@@ -27,7 +27,7 @@ const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
     </div>
 
     <div class="articles-grid">
-      {paginatedPosts.map(post => (
+      {page.data.map((post: any) => (
         <ArticleCard
           url={post.url || ''}
           title={post.frontmatter.title}
@@ -41,8 +41,8 @@ const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
     </div>
 
     <Pagination
-      currentPage={currentPage}
-      totalPages={totalPages}
+      currentPage={page.currentPage}
+      totalPages={page.lastPage}
       baseUrl="/"
     />
   </div>
