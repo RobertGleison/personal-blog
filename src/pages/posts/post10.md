@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Docker for Developers'
 pubDate: 2024-07-22
 description: 'Complete guide to using Docker for containerizing your applications and improving development workflow.'

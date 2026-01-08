@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: 'CSS Grid Layout Tutorial'
 pubDate: 2024-03-10
 description: 'Master CSS Grid with this comprehensive tutorial covering all the essential concepts.'

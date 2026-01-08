@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import Pagination from '../../components/Pagination.astro';
+
+const POSTS_PER_PAGE = 9;
+const currentPage = 1;
+
+const allPosts = await Astro.glob('./*.md');
+
+const sortedPosts = allPosts
+  .filter(post => post.frontmatter?.pubDate)
+  .sort((a, b) => {
+    return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
+  });
+
+const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
+---
+
+<BaseLayout title="Posts | Robert Gleison" description="Read all articles on my blog">
+  <div class="home-container">
+    <div class="home-header">
+      <h1>Latest Articles</h1>
+      <SearchBar />
+    </div>
+
+    <div class="articles-grid">
+      {paginatedPosts.map(post => (
+        <ArticleCard
+          url={post.url || ''}
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+          pubDate={new Date(post.frontmatter.pubDate)}
+          author={post.frontmatter.author}
+          image={post.frontmatter.image}
+          tags={post.frontmatter.tags}
+        />
+      ))}
+    </div>
+
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      baseUrl="/posts/"
+    />
+  </div>
+</BaseLayout>
+
+<style>
+  .home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .home-header {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .home-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .home-container {
+      padding: 1rem;
+    }
+
+    .home-header h1 {
+      font-size: 2rem;
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>

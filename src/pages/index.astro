@@ -1,49 +1,120 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ArticleCard from '../components/ArticleCard.astro';
-import SearchBar from '../components/SearchBar.astro';
-import Pagination from '../components/Pagination.astro';
-
-const POSTS_PER_PAGE = 9;
-const currentPage = 1;
-
-const allPosts = await Astro.glob('./posts/*.md');
-
-const sortedPosts = allPosts
-  .filter(post => post.frontmatter?.pubDate)
-  .sort((a, b) => {
-    return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
-  });
-
-const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
-const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
 ---
 
-<BaseLayout title="Home - My Blog" description="Read the latest articles on my blog">
-  <div class="home-container">
-    <div class="home-header">
-      <h1>Latest Articles</h1>
-      <SearchBar />
+<BaseLayout title="Home | Robert Gleison" description="Welcome to Robert Gleison's blog">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">Welcome to My Blog</h1>
+      <p class="hero-description">
+        Bom dia, bem vindo ao meu site. <br> <br>
+        Escrevo sobre engenharia de dados, tecnologia e coisas que vou sempre aprendendo.
+        É um blog pessoal para me ajudar a fixar os conteúdos na mente, mas se for útil para alguém eu fico feliz.
+<br><br>
+        Sou um engenheiro de dados e programador backend. Gosto bastante de estudar system desing, infraestrutura, nuvem e plataforma de dados.
+<br><br>
+        Fique a vontade!
+      </p>
+      <div class="hero-buttons">
+        <a href="/posts/" class="button button-primary">Read My Posts</a>
+        <a href="/about/" class="button button-secondary">About Me</a>
+      </div>
     </div>
-
-    <div class="articles-grid">
-      {paginatedPosts.map(post => (
-        <ArticleCard
-          url={post.url || ''}
-          title={post.frontmatter.title}
-          description={post.frontmatter.description}
-          pubDate={new Date(post.frontmatter.pubDate)}
-          author={post.frontmatter.author}
-          image={post.frontmatter.image}
-          tags={post.frontmatter.tags}
-        />
-      ))}
-    </div>
-
-    <Pagination
-      currentPage={currentPage}
-      totalPages={totalPages}
-      baseUrl="/"
-    />
   </div>
 </BaseLayout>
+
+<style>
+  .hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .button-primary {
+    background: var(--accent-color);
+    color: white;
+  }
+
+  .button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .button-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+  }
+
+  .button-secondary:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .hero-container {
+      padding: 3rem 1rem;
+      min-height: 50vh;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .button {
+      width: 100%;
+      max-width: 250px;
+      text-align: center;
+    }
+  }
+</style>

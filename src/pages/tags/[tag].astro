@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob('../posts/*.md');
+
+  // Get all unique tags
+  const uniqueTags = [...new Set(allPosts.flatMap(post => post.frontmatter?.tags || []))];
+
+  // Create a path for each tag
+  return uniqueTags.map(tag => {
+    const filteredPosts = allPosts.filter(post =>
+      post.frontmatter?.tags?.includes(tag)
+    );
+
+    return {
+      params: { tag },
+      props: { posts: filteredPosts }
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+// Sort posts by date
+const sortedPosts = posts
+  .filter(post => post.frontmatter?.pubDate)
+  .sort((a, b) => {
+    return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
+  });
+---
+
+<BaseLayout
+  title={`Posts tagged "${tag}" - My Blog`}
+  description={`All blog posts tagged with ${tag}`}
+>
+  <div class="tag-page-container">
+    <a href="/" class="back-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back to Home
+    </a>
+
+    <div class="tag-header">
+      <h1>Posts tagged with <span class="tag-name">"{tag}"</span></h1>
+      <p class="post-count">{sortedPosts.length} {sortedPosts.length === 1 ? 'post' : 'posts'} found</p>
+    </div>
+
+    <div class="articles-grid">
+      {sortedPosts.map(post => (
+        <ArticleCard
+          url={post.url || ''}
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+          pubDate={new Date(post.frontmatter.pubDate)}
+          author={post.frontmatter.author}
+          image={post.frontmatter.image}
+          tags={post.frontmatter.tags}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .back-button:hover {
+    color: var(--accent-color);
+    background: var(--bg-tertiary);
+    transform: translateX(-4px);
+  }
+
+  .back-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tag-header {
+    margin-bottom: 3rem;
+  }
+
+  .tag-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .tag-name {
+    color: var(--accent-color);
+  }
+
+  .post-count {
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .tag-header h1 {
+      font-size: 2rem;
+    }
+
+    .tag-page-container {
+      padding: 2rem 1rem;
+    }
+  }
+</style>

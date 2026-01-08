@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Understanding Web Performance'
 pubDate: 2024-01-15
 description: 'Deep dive into web performance optimization techniques and best practices.'
