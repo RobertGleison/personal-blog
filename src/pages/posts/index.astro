@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import SearchBar from '../../components/SearchBar.astro';
 import Pagination from '../../components/Pagination.astro';
+import CategoriesSidebar from '../../components/CategoriesSidebar.astro';
 
 const POSTS_PER_PAGE = 9;
 const currentPage = 1;
@@ -15,73 +16,129 @@ const sortedPosts = allPosts
     return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
   });
 
+// Calculate category counts
+const categoryMap = new Map<string, number>();
+sortedPosts.forEach(post => {
+  const tags = post.frontmatter.tags || [];
+  tags.forEach((tag: string) => {
+    categoryMap.set(tag, (categoryMap.get(tag) || 0) + 1);
+  });
+});
+
+const categories = Array.from(categoryMap.entries())
+  .map(([name, count]) => ({ name, count }))
+  .sort((a, b) => {
+    // Sort by count descending, then by name ascending for stable ordering
+    if (b.count !== a.count) {
+      return b.count - a.count;
+    }
+    return a.name.localeCompare(b.name);
+  });
+
 const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
 const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
 ---
 
-<BaseLayout title="Posts | Robert Gleison" description="Read all articles on my blog">
-  <div class="home-container">
-    <div class="home-header">
-      <h1>Latest Articles</h1>
+<BaseLayout title="Posts | Robert Gleison" description="Artigos técnicos e reflexões sobre programação, engenharia de software e tecnologia.">
+  <div class="posts-page-container">
+    <div class="posts-page-header">
+      <h1>Posts</h1>
+      <p class="posts-subtitle">Artigos técnicos e reflexões sobre programação, engenharia de software e tecnologia.</p>
       <SearchBar />
     </div>
 
-    <div class="articles-grid">
-      {paginatedPosts.map(post => (
-        <ArticleCard
-          url={post.url || ''}
-          title={post.frontmatter.title}
-          description={post.frontmatter.description}
-          pubDate={new Date(post.frontmatter.pubDate)}
-          author={post.frontmatter.author}
-          image={post.frontmatter.image}
-          tags={post.frontmatter.tags}
-        />
-      ))}
-    </div>
+    <div class="posts-layout">
+      <CategoriesSidebar categories={categories} totalPosts={sortedPosts.length} />
 
-    <Pagination
-      currentPage={currentPage}
-      totalPages={totalPages}
-      baseUrl="/posts/"
-    />
+      <div class="posts-main-content">
+        <div class="articles-grid">
+          {paginatedPosts.map(post => (
+            <ArticleCard
+              url={post.url || ''}
+              title={post.frontmatter.title}
+              description={post.frontmatter.description}
+              pubDate={new Date(post.frontmatter.pubDate)}
+              author={post.frontmatter.author}
+              image={post.frontmatter.image}
+              tags={post.frontmatter.tags}
+            />
+          ))}
+        </div>
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          baseUrl="/posts/"
+        />
+      </div>
+    </div>
   </div>
 </BaseLayout>
 
 <style>
-  .home-container {
-    max-width: 1200px;
+  .posts-page-container {
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
   }
 
-  .home-header {
-    margin-bottom: 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  .posts-page-header {
+    margin-bottom: 2rem;
   }
 
-  .home-header h1 {
+  .posts-page-header h1 {
     font-size: 2.5rem;
     font-weight: bold;
     color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .tag-name {
+    color: var(--accent-color);
+  }
+
+  .posts-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .posts-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .posts-main-content {
+    min-width: 0;
   }
 
   .articles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     margin-bottom: 3rem;
   }
 
+  @media (max-width: 968px) {
+    .posts-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
   @media (max-width: 768px) {
-    .home-container {
+    .posts-page-container {
       padding: 1rem;
     }
 
-    .home-header h1 {
+    .posts-page-header h1 {
       font-size: 2rem;
+    }
+
+    .posts-subtitle {
+      font-size: 0.9rem;
     }
 
     .articles-grid {

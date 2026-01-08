@@ -33,26 +33,7 @@
   }
 </style>
 
-<script is:inline>
-  const theme = (() => {
-    const localStorageTheme = localStorage?.getItem("theme") ?? '';
-    if (['dark', 'light'].includes(localStorageTheme)) {
-      return localStorageTheme;
-    }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  })();
-
-  if (theme === 'light') {
-    document.documentElement.removeAttribute('data-theme');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
-
-  window.localStorage.setItem('theme', theme);
-
+<script>
   const handleToggleClick = () => {
     const element = document.documentElement;
     const currentTheme = element.getAttribute('data-theme');

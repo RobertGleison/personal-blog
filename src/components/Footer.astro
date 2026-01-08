@@ -1,36 +1,5 @@
----
-import { getCollection } from 'astro:content';
-
-// Get all posts to extract unique tags
-const allPosts = await Astro.glob('../pages/posts/*.md');
-const allTags = new Map<string, number>();
-
-allPosts.forEach(post => {
-  const tags = post.frontmatter?.tags || [];
-  tags.forEach((tag: string) => {
-    allTags.set(tag, (allTags.get(tag) || 0) + 1);
-  });
-});
-
-const sortedTags = Array.from(allTags.entries())
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 15);
----
-
 <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-section">
-      <h3>Explore Topics</h3>
-      <div class="tag-cloud">
-        {sortedTags.map(([tag, count]) => (
-          <a href={`/tags/${tag}/`} class="tag">
-            {tag} ({count})
-          </a>
-        ))}
-      </div>
-    </div>
     <div class="footer-bottom">
-      <p>&copy; {new Date().getFullYear()} Robert Gleison. All rights reserved.</p>
+      <p>&copy; {new Date().getFullYear()} Robert Gleison. Todos os direitos reservados.</p>
     </div>
-  </div>
 </footer>

@@ -5,7 +5,7 @@ import SearchBar from '../components/SearchBar.astro';
 import Pagination from '../components/Pagination.astro';
 
 export async function getStaticPaths({ paginate }: any) {
-  const allPosts = await Astro.glob('./posts/*.md');
+  const allPosts = await Astro.glob('../pages/posts/*.md');
 
   const sortedPosts = allPosts
     .filter(post => post.frontmatter?.pubDate)

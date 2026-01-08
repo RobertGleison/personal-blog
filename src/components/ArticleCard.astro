@@ -15,11 +15,10 @@ interface Props {
 const { url, title, description, pubDate, author, image, tags } = Astro.props;
 
 const formatDate = (date: Date) => {
-  return date.toLocaleDateString('en-US', {
-    weekday: 'short',
-    year: 'numeric',
+  return date.toLocaleDateString('pt-BR', {
+    day: 'numeric',
     month: 'long',
-    day: 'numeric'
+    year: 'numeric'
   });
 };
 ---
@@ -33,20 +32,10 @@ const formatDate = (date: Date) => {
     )}
     <div class="article-content">
       <h2 class="article-title">{title}</h2>
+      <p class="article-description">{description}</p>
       <div class="article-meta">
         <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
-        {author && <span class="author">by {author}</span>}
       </div>
-      <p class="article-description">{description}</p>
     </div>
   </a>
-  {tags && tags.length > 0 && (
-    <div class="article-tags">
-      {tags.map(tag => (
-        <a href={`/tags/${tag}/`} class="tag-badge" onclick="event.stopPropagation();">
-          {tag}
-        </a>
-      ))}
-    </div>
-  )}
 </article>

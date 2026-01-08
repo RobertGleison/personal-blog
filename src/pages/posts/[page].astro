@@ -2,47 +2,43 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import SearchBar from '../../components/SearchBar.astro';
+import Pagination from '../../components/Pagination.astro';
 import CategoriesSidebar from '../../components/CategoriesSidebar.astro';
 
-export async function getStaticPaths() {
-  const allPosts = await Astro.glob('../posts/*.md');
+export async function getStaticPaths({ paginate }: any) {
+  const allPosts = await Astro.glob('./*.md');
 
-  // Get all unique tags
-  const uniqueTags = [...new Set(allPosts.flatMap(post => post.frontmatter?.tags || []))];
+  const sortedPosts = allPosts
+    .filter(post => post.frontmatter?.pubDate)
+    .sort((a, b) => {
+      return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
+    });
 
-  // Create a path for each tag
-  return uniqueTags.map(tag => {
-    const filteredPosts = allPosts.filter(post =>
-      post.frontmatter?.tags?.includes(tag)
-    );
-
-    return {
-      params: { tag },
-      props: { posts: filteredPosts, allPosts }
-    };
-  });
+  return paginate(sortedPosts, { pageSize: 9 });
 }
 
-const { tag } = Astro.params;
-const { posts, allPosts } = Astro.props;
+const { page } = Astro.props;
 
-// Sort posts by date
-const sortedPosts = posts
-  .filter(post => post.frontmatter?.pubDate)
-  .sort((a, b) => {
-    return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
-  });
-
-// Calculate category counts from all posts
+// Calculate category counts
 const categoryMap = new Map<string, number>();
-allPosts.forEach(post => {
+page.data.forEach((post: any) => {
   const tags = post.frontmatter.tags || [];
-  tags.forEach((postTag: string) => {
-    categoryMap.set(postTag, (categoryMap.get(postTag) || 0) + 1);
+  tags.forEach((tag: string) => {
+    categoryMap.set(tag, (categoryMap.get(tag) || 0) + 1);
   });
 });
 
-const categories = Array.from(categoryMap.entries())
+// Get all posts for total category count
+const allPosts = await Astro.glob('./*.md');
+const allCategoryMap = new Map<string, number>();
+allPosts.forEach(post => {
+  const tags = post.frontmatter.tags || [];
+  tags.forEach((tag: string) => {
+    allCategoryMap.set(tag, (allCategoryMap.get(tag) || 0) + 1);
+  });
+});
+
+const categories = Array.from(allCategoryMap.entries())
   .map(([name, count]) => ({ name, count }))
   .sort((a, b) => {
     // Sort by count descending, then by name ascending for stable ordering
@@ -51,27 +47,22 @@ const categories = Array.from(categoryMap.entries())
     }
     return a.name.localeCompare(b.name);
   });
-
-const totalPosts = allPosts.filter(post => post.frontmatter?.pubDate).length;
 ---
 
-<BaseLayout
-  title={`Posts tagged "${tag}" - My Blog`}
-  description={`All blog posts tagged with ${tag}`}
->
+<BaseLayout title={`Posts - Page ${page.currentPage} | Robert Gleison`} description="Artigos técnicos e reflexões sobre programação, engenharia de software e tecnologia.">
   <div class="posts-page-container">
     <div class="posts-page-header">
-      <h1>Posts tagged with <span class="tag-name">"{tag}"</span></h1>
-      <p class="posts-subtitle">{sortedPosts.length} {sortedPosts.length === 1 ? 'post' : 'posts'} found</p>
+      <h1>Posts</h1>
+      <p class="posts-subtitle">Artigos técnicos e reflexões sobre programação, engenharia de software e tecnologia.</p>
       <SearchBar />
     </div>
 
     <div class="posts-layout">
-      <CategoriesSidebar categories={categories} totalPosts={totalPosts} currentCategory={tag} />
+      <CategoriesSidebar categories={categories} totalPosts={allPosts.length} />
 
       <div class="posts-main-content">
         <div class="articles-grid">
-          {sortedPosts.map(post => (
+          {page.data.map((post: any) => (
             <ArticleCard
               url={post.url || ''}
               title={post.frontmatter.title}
@@ -83,6 +74,12 @@ const totalPosts = allPosts.filter(post => post.frontmatter?.pubDate).length;
             />
           ))}
         </div>
+
+        <Pagination
+          currentPage={page.currentPage}
+          totalPages={page.lastPage}
+          baseUrl="/posts/"
+        />
       </div>
     </div>
   </div>
