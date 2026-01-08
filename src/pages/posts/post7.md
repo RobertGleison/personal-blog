@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Building RESTful APIs with Node.js'
 pubDate: 2024-04-05
 description: 'Learn how to build scalable and maintainable REST APIs using Node.js and Express.'

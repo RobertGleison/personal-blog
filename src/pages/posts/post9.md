@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Database Design Best Practices'
 pubDate: 2024-06-15
 description: 'Essential principles for designing efficient and scalable database schemas.'

@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: 'React Hooks Deep Dive'
 pubDate: 2024-05-20
 description: 'Explore React Hooks in depth and learn how to use them effectively in your applications.'

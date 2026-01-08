@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Getting Started with TypeScript'
 pubDate: 2024-02-01
 description: 'A beginner-friendly guide to TypeScript and its benefits for modern web development.'

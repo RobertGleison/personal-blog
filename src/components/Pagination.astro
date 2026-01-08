@@ -8,8 +8,16 @@ interface Props {
 const { currentPage, totalPages, baseUrl = '/' } = Astro.props;
 
 const getPageUrl = (page: number) => {
-  if (page === 1) return baseUrl;
-  return `${baseUrl}${page}/`;
+  // Remove trailing slash from baseUrl if present
+  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+
+  if (page === 1) {
+    // For page 1, return baseUrl as-is (with trailing slash if it had one)
+    return baseUrl;
+  }
+
+  // For other pages, append the page number
+  return `${cleanBaseUrl}/${page}/`;
 };
 
 const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
