@@ -137,16 +137,17 @@ import logo from '../assets/logo.png';
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
     }
 
     .mobile-menu-toggle {
       display: block;
+      position: relative;
+      z-index: 1001;
     }
 
     .mobile-menu-toggle.active {
-      position: fixed;
-      top: 1.5rem;
-      right: 1.5rem;
+      position: relative;
     }
 
     .nav-links {
