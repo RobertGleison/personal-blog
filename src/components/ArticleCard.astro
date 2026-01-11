@@ -1,0 +1,41 @@
+---
+interface Props {
+  url: string;
+  title: string;
+  description?: string;
+  pubDate: Date;
+  author?: string;
+  image?: {
+    url: string;
+    alt: string;
+  };
+  tags?: string[];
+}
+
+const { url, title, description, pubDate, author, image, tags } = Astro.props;
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('pt-BR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+};
+---
+
+<article class="article-card">
+  <a href={url} class="article-link">
+    {image && (
+      <div class="article-image">
+        <img src={image.url} alt={image.alt} loading="lazy" />
+      </div>
+    )}
+    <div class="article-content">
+      <h2 class="article-title">{title}</h2>
+      <p class="article-description">{description}</p>
+      <div class="article-meta">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+      </div>
+    </div>
+  </a>
+</article>

@@ -1,0 +1,71 @@
+---
+---
+
+<div class="search-container">
+  <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle>
+    <path d="m21 21-4.35-4.35"></path>
+  </svg>
+  <input
+    type="text"
+    id="search-input"
+    class="search-input"
+    placeholder="Buscar posts..."
+    aria-label="Buscar posts"
+  />
+</div>
+
+<style>
+  .search-container {
+    position: relative;
+    max-width: 100%;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  .search-input {
+    padding-left: 2.75rem;
+  }
+</style>
+
+<script>
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const articles = document.querySelectorAll('.article-card');
+  const pageHeader = document.querySelector('.posts-page-header h1') as HTMLElement;
+  const originalHeading = pageHeader?.innerHTML || '';
+
+  searchInput?.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    const pageVisualSearchTerm = (e.target as HTMLInputElement).value;
+
+    // Update heading based on search term
+    if (searchTerm && pageHeader) {
+      pageHeader.innerHTML = `Posts tagged with: <span class="tag-name">"${pageVisualSearchTerm}"</span>`;
+    } else if (pageHeader) {
+      pageHeader.innerHTML = originalHeading;
+    }
+
+    articles.forEach((article) => {
+      const title = article.querySelector('.article-title')?.textContent?.toLowerCase() || '';
+      const description = article.querySelector('.article-description')?.textContent?.toLowerCase() || '';
+      const tags = article.querySelector('.article-tags')?.textContent?.toLowerCase() || '';
+
+      const matches = title.includes(searchTerm) ||
+                     description.includes(searchTerm) ||
+                     tags.includes(searchTerm);
+
+      if (matches || searchTerm === '') {
+        (article as HTMLElement).style.display = '';
+      } else {
+        (article as HTMLElement).style.display = 'none';
+      }
+    });
+  });
+</script>

@@ -1,0 +1,64 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl?: string;
+}
+
+const { currentPage, totalPages, baseUrl = '/' } = Astro.props;
+
+const getPageUrl = (page: number) => {
+  // Remove trailing slash from baseUrl if present
+  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+
+  if (page === 1) {
+    // For page 1, return baseUrl as-is (with trailing slash if it had one)
+    return baseUrl;
+  }
+
+  // For other pages, append the page number
+  return `${cleanBaseUrl}/${page}/`;
+};
+
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+const showPages = pages.filter(page => {
+  if (page === 1 || page === totalPages) return true;
+  if (page >= currentPage - 1 && page <= currentPage + 1) return true;
+  return false;
+});
+---
+
+{totalPages > 1 && (
+  <nav class="pagination" aria-label="Pagination">
+    {currentPage > 1 && (
+      <a href={getPageUrl(currentPage - 1)} class="pagination-link" aria-label="Previous page">
+        &laquo; Prev
+      </a>
+    )}
+
+    {showPages.map((page, index) => {
+      const prevPage = showPages[index - 1];
+      const showEllipsis = prevPage && page - prevPage > 1;
+
+      return (
+        <>
+          {showEllipsis && <span class="pagination-ellipsis">...</span>}
+          <a
+            href={getPageUrl(page)}
+            class={`pagination-link ${page === currentPage ? 'active' : ''}`}
+            aria-label={`Page ${page}`}
+            aria-current={page === currentPage ? 'page' : undefined}
+          >
+            {page}
+          </a>
+        </>
+      );
+    })}
+
+    {currentPage < totalPages && (
+      <a href={getPageUrl(currentPage + 1)} class="pagination-link" aria-label="Next page">
+        Next &raquo;
+      </a>
+    )}
+  </nav>
+)}
