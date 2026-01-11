@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 - Página Não Encontrada | Robert Gleison" description="A página que você procura não existe.">
+  <div class="error-container">
+    <div class="error-content">
+      <div class="error-code">404</div>
+      <h1 class="error-title">Ops! Página não encontrada</h1>
+      <p class="error-description">
+        Parece que você se perdeu... A página que você está procurando não existe ou foi movida.
+      </p>
+      <div class="error-actions">
+        <a href="/" class="button button-primary">Voltar para Home</a>
+        <a href="/posts/" class="button button-secondary">Ver Posts</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .error-content {
+    flex: 1;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .error-code {
+    font-size: 8rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    line-height: 1;
+    margin-bottom: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    opacity: 0.8;
+  }
+
+  .error-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .error-description {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .button {
+    padding: 0.875rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .button-primary {
+    background: var(--accent-color);
+    color: white;
+  }
+
+  .button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .button-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+  }
+
+  .button-secondary:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .error-container {
+      flex-direction: column;
+      padding: 3rem 1rem;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .error-code {
+      font-size: 6rem;
+    }
+
+    .error-title {
+      font-size: 2rem;
+    }
+
+    .error-description {
+      font-size: 1.1rem;
+    }
+
+    .error-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .button {
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+    }
+  }
+</style>
