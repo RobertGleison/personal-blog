@@ -1,40 +1,40 @@
 ---
 interface CategoryCount {
-  name: string;
-  count: number;
+    name: string;
+    count: number;
 }
 
 interface Props {
-  categories: CategoryCount[];
-  totalPosts: number;
-  currentCategory?: string;
+    categories: CategoryCount[];
+    totalPosts: number;
+    currentCategory?: string;
 }
 
 const { categories, totalPosts, currentCategory } = Astro.props;
 ---
 
 <aside class="categories-sidebar">
-  <div class="categories-header">
-    <h2>CATEGORIAS</h2>
-    <span class="total-posts">{totalPosts} posts</span>
-  </div>
+    <div class="categories-header">
+        <h2>CATEGORIES</h2>
+        <span class="total-posts">{totalPosts} posts</span>
+    </div>
 
-  <nav class="categories-list">
-    <a href="/posts/" class={`category-item ${!currentCategory ? 'active' : ''}`}>
-      <span class="category-name">Todos</span>
-      <span class="category-count">{totalPosts}</span>
-    </a>
+    <nav class="categories-list">
+        <a href="/posts/" class={`category-item ${!currentCategory ? 'active' : ''}`}>
+            <span class="category-name">All</span>
+            <span class="category-count">{totalPosts}</span>
+        </a>
 
-    {categories.map(category => (
-      <a
-        href={`/tags/${category.name.toLowerCase()}/`}
-        class={`category-item ${currentCategory && currentCategory.toLowerCase() === category.name.toLowerCase() ? 'active' : ''}`}
-      >
-        <span class="category-name">{category.name}</span>
-        <span class="category-count">{category.count}</span>
-      </a>
-    ))}
-  </nav>
+        {categories.map(category => (
+            <a
+              href={`/tags/${category.name.toLowerCase()}/`}
+              class={`category-item ${currentCategory && currentCategory.toLowerCase() === category.name.toLowerCase() ? 'active' : ''}`}
+            >
+              <span class="category-name">{category.name}</span>
+              <span class="category-count">{category.count}</span>
+            </a>
+        ))}
+    </nav>
 </aside>
 
 <style>

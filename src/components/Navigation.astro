@@ -2,69 +2,120 @@
 import ThemeToggle from './ThemeToggle.astro';
 import logo from '../assets/logo.png';
 ---
+
 <nav class="navigation">
-  <div class="nav-container">
-    <div class="nav-brand">
-      <a href="/">
-        <img src={logo.src} alt="robertech.dev logo" class="logo" />
-        <span>robertech.dev</span>
-      </a>
-    </div>
+    <div class="nav-container">
+        <div class="nav-brand">
+          <a href="/">
+            <img src={logo.src} alt="robertech.dev logo" class="logo" />
+            <span>robertech.dev</span>
+          </a>
+        </div>
 
-    <button class="mobile-menu-toggle" aria-label="Toggle menu">
-      <svg class="hamburger" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-      <svg class="close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+            <svg class="hamburger" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            <svg class="close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
 
-    <div class="nav-links">
-      <a href="/">Início</a>
-      <a href="/posts/">Posts</a>
-      <div class="social-links">
-        <a href="https://github.com/RobertGleison" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-          </svg>
-        </a>
-        <a href="https://www.linkedin.com/in/robertgleison/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-            <rect x="2" y="9" width="4" height="12"></rect>
-            <circle cx="4" cy="4" r="2"></circle>
-          </svg>
-        </a>
+      <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/posts/">Posts</a>
+          <div class="social-links">
+              <a href="https://github.com/RobertGleison" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+              </a>
+              <a href="https://www.linkedin.com/in/robertgleison/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+              </a>
+        </div>
+        <ThemeToggle />
       </div>
-      <ThemeToggle />
     </div>
-  </div>
 </nav>
 
 <script>
-  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
 
-  mobileMenuToggle?.addEventListener('click', () => {
-    navLinks?.classList.toggle('active');
-    mobileMenuToggle?.classList.toggle('active');
-  });
-
-  // Close menu when clicking a link
-  const links = document.querySelectorAll('.nav-links a');
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks?.classList.remove('active');
-      mobileMenuToggle?.classList.remove('active');
+    mobileMenuToggle?.addEventListener('click', () => {
+        navLinks?.classList.toggle('active');
+        mobileMenuToggle?.classList.toggle('active');
     });
-  });
+
+    // Close menu when clicking a link
+    const links = document.querySelectorAll('.nav-links a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks?.classList.remove('active');
+            mobileMenuToggle?.classList.remove('active');
+        });
+    });
 </script>
 
 <style>
+  /* Navigation */
+  .navigation {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-brand a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-brand .logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--accent-color);
+  }
+
   .mobile-menu-toggle {
     display: none;
     background: transparent;
@@ -117,37 +168,9 @@ import logo from '../assets/logo.png';
     height: 20px;
   }
 
-  .nav-brand a {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--text-primary);
-  }
-
-  .nav-brand .logo {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-  }
-
   @media (max-width: 768px) {
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-    }
-
     .mobile-menu-toggle {
       display: block;
-      position: relative;
-      z-index: 1001;
-    }
-
-    .mobile-menu-toggle.active {
-      position: relative;
     }
 
     .nav-links {

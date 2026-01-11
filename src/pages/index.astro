@@ -1,56 +1,51 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import towerImage from '../assets/Gemini_Generated_Image_t611ndt611ndt611.png';
 import logo from '../assets/logo.png';
 
 const allPosts = await Astro.glob('../pages/posts/*.md');
 const sortedPosts = allPosts.sort((a, b) =>
-  new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
 );
 const recentPosts = sortedPosts.slice(0, 3);
 ---
 
 <BaseLayout title="Home | Robert Gleison" description="Welcome to Robert Gleison's blog">
-  <div class="hero-container">
-    <div class="hero-content">
-      <div class="brand-section">
-        <img src={logo.src} alt="Robert Gleison Logo" class="brand-logo" />
-        <h1 class="hero-title">Robert Gleison</h1>
-      </div>
 
-      <!-- <h2 class="hero-description">
-        Technical blog -->
-
-        <p class="hero-text">
-        Welcome to my personal blog! <br><br>
-
-        This is a personal blog to help me solidify content in my mind, but if it's useful to someone else, I'm happy. <br><br>
-        I am a data engineer and backend programmer. I really enjoy studying system design, infrastructure, cloud, and data platforms.
-      </p>
-      </div>
-    </div>
-  </div>
-
-  <section class="recent-posts">
-    <h2>Recent Posts</h2>
-    <div class="posts-grid">
-      {recentPosts.map((post) => (
-        <article class="post-card">
-          <a href={post.url}>
-            <h3>{post.frontmatter.title}</h3>
-            <p class="post-date">{new Date(post.frontmatter.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-            <p class="post-description">{post.frontmatter.description}</p>
-            <div class="post-tags">
-              {post.frontmatter.tags?.slice(0, 3).map((tag) => (
-                <span class="tag">{tag}</span>
-              ))}
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="brand-section">
+              <img src={logo.src} alt="Robert Gleison Logo" class="brand-logo" />
+              <h1 class="hero-title">Robert Gleison</h1>
             </div>
-          </a>
-        </article>
-      ))}
+            <p class="hero-text">
+              Welcome to my personal blog!<br><br>
+              This is a personal blog to help me solidify content in my mind, but if it's useful to someone else, I'm happy. <br><br>
+              I am a data engineer and backend programmer. I really enjoy studying system design, infrastructure, cloud, and data platforms.
+            </p>
+        </div>
     </div>
-    <a href="/posts/" class="view-all-link">View all posts →</a>
-  </section>
+
+    <section class="recent-posts">
+        <h2>Recent Posts</h2>
+        <div class="posts-grid">
+            {recentPosts.map((post) => (
+                <article class="post-card">
+                    <a href={post.url}>
+                    <h3>{post.frontmatter.title}</h3>
+                    <p class="post-date">{new Date(post.frontmatter.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    <p class="post-description">{post.frontmatter.description}</p>
+                    <div class="post-tags">
+                        {post.frontmatter.tags?.slice(0, 3).map((tag) => (
+                            <span class="tag">{tag}</span>
+                        ))}
+                    </div>
+                    </a>
+                </article>
+            ))}
+        </div>
+      <a href="/posts/" class="view-all-link">View all posts →</a>
+    </section>
+
 </BaseLayout>
 
 <style>

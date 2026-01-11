@@ -5,11 +5,10 @@ const { frontmatter } = Astro.props;
 
 // Get all posts to find previous and next
 const allPosts = await Astro.glob('../pages/posts/*.md');
-const sortedPosts = allPosts
-  .filter(post => post.frontmatter?.pubDate)
-  .sort((a, b) => {
+const sortedPosts = allPosts.filter(post => post.frontmatter?.pubDate)
+                            .sort((a, b) => {
     return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
-  });
+});
 
 // Find current post index
 const currentUrl = Astro.url.pathname;
@@ -21,90 +20,96 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description}>
-  <article class="post-container">
-    <a href="/" class="back-button">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 12H5M12 19l-7-7 7-7"/>
-      </svg>
-    </a>
-    <header class="post-header">
-      <h1 class="post-title">{frontmatter.title}</h1>
-      <div class="post-meta">
-        <time datetime={frontmatter.pubDate}>
-          {new Date(frontmatter.pubDate).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
-        </time>
-        {frontmatter.author && (
-          <>
-            <span class="separator">•</span>
-            <span class="author">{frontmatter.author}</span>
-          </>
-        )}
-      </div>
-      {frontmatter.image && (
-        <div class="post-image">
-          <img src={frontmatter.image.url} alt={frontmatter.image.alt} />
+
+    <article class="post-container">
+
+        <a href="/" class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </a>
+
+        <header class="post-header">
+            <h1 class="post-title">{frontmatter.title}</h1>
+            <div class="post-meta">
+                <time datetime={frontmatter.pubDate}>
+                    {new Date(frontmatter.pubDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}
+                </time>
+                {frontmatter.author && (
+                    <>
+                        <span class="separator">•</span>
+                        <span class="author">{frontmatter.author}</span>
+                    </>
+                )}
+            </div>
+            {frontmatter.image && (
+                <div class="post-image">
+                   <img src={frontmatter.image.url} alt={frontmatter.image.alt} />
+                </div>
+            )}
+            {frontmatter.tags && (
+                <div class="post-tags">
+                    {frontmatter.tags.map((tag: string) => (
+                        <a href={`/tags/${tag}/`} class="tag-badge">{tag}</a>
+                    ))}
+                </div>
+            )}
+        </header>
+
+        <div class="post-content">
+            <slot />
         </div>
-      )}
-      {frontmatter.tags && (
-        <div class="post-tags">
-          {frontmatter.tags.map((tag: string) => (
-            <a href={`/tags/${tag}/`} class="tag-badge">{tag}</a>
-          ))}
-        </div>
-      )}
-    </header>
-    <div class="post-content">
-      <slot />
-    </div>
 
-    {(previousPost || nextPost) && (
-      <nav class="post-navigation">
-        {previousPost && (
-          <a href={previousPost.url} class="nav-link nav-previous">
-            <span class="nav-label">← Previous</span>
-            <span class="nav-title">{previousPost.frontmatter.title}</span>
-          </a>
+        {(previousPost || nextPost) && (
+            <nav class="post-navigation">
+                {previousPost && (
+                    <a href={previousPost.url} class="nav-link nav-previous">
+                        <span class="nav-label">← Previous</span>
+                        <span class="nav-title">{previousPost.frontmatter.title}</span>
+                    </a>
+                )}
+                {nextPost && (
+                    <a href={nextPost.url} class="nav-link nav-next">
+                        <span class="nav-label">Next →</span>
+                        <span class="nav-title">{nextPost.frontmatter.title}</span>
+                    </a>
+                )}
+            </nav>
         )}
-        {nextPost && (
-          <a href={nextPost.url} class="nav-link nav-next">
-            <span class="nav-label">Next →</span>
-            <span class="nav-title">{nextPost.frontmatter.title}</span>
-          </a>
-        )}
-      </nav>
-    )}
-  </article>
 
-  <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
+    </article>
 
-  <script>
-    const scrollToTopBtn = document.getElementById('scroll-to-top');
+    <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
 
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        scrollToTopBtn?.classList.add('visible');
-      } else {
-        scrollToTopBtn?.classList.remove('visible');
-      }
-    });
+    <script>
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
 
-    // Scroll to top on click
-    scrollToTopBtn?.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+              scrollToTopBtn?.classList.add('visible');
+            } else {
+              scrollToTopBtn?.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top on click
+        scrollToTopBtn?.addEventListener('click', () => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+        });
+    </script>
+
 </BaseLayout>
 
 <style>
@@ -191,6 +196,66 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     font-family: 'JetBrains Mono', monospace;
     line-height: 1.8;
     color: var(--text-secondary);
+  }
+
+  /* Article Content Styles */
+  .post-content :global(h1),
+  .post-content :global(h2),
+  .post-content :global(h3),
+  .post-content :global(h4),
+  .post-content :global(h5),
+  .post-content :global(h6) {
+    color: var(--text-primary);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .post-content :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  .post-content :global(a) {
+    color: var(--accent-color);
+    text-decoration: underline;
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .post-content :global(code),
+  .post-content :global(pre),
+  .post-content :global(pre code) {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .post-content :global(pre) {
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    background: var(--bg-quaternary);
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .post-content :global(code) {
+    background: var(--bg-quaternary);
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+  }
+
+  .post-content :global(pre code) {
+    background: none;
+    padding: 0;
   }
 
   .post-navigation {

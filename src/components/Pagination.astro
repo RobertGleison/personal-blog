@@ -62,3 +62,42 @@ const showPages = pages.filter(page => {
     )}
   </nav>
 )}
+
+<style>
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+
+  .pagination-link {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-muted);
+    background: var(--bg-secondary);
+    transition: all 0.2s, background-color 0.3s ease;
+  }
+
+  .pagination-link:hover {
+    background: var(--bg-quaternary);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+  }
+
+  .pagination-link.active {
+    background: var(--accent-color);
+    color: var(--accent-contrast);
+    border-color: var(--accent-color);
+  }
+
+  .pagination-ellipsis {
+    padding: 0.5rem;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+  }
+</style>

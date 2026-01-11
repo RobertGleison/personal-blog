@@ -5,86 +5,83 @@ import SearchBar from '../../components/SearchBar.astro';
 import CategoriesSidebar from '../../components/CategoriesSidebar.astro';
 
 export async function getStaticPaths() {
-  const allPosts = await Astro.glob('../posts/*.md');
+    const allPosts = await Astro.glob('../posts/*.md');
+    // Get all unique tags
+    const uniqueTags = [...new Set(allPosts.flatMap(post => post.frontmatter?.tags || []))];
 
-  // Get all unique tags
-  const uniqueTags = [...new Set(allPosts.flatMap(post => post.frontmatter?.tags || []))];
+    // Create a path for each tag
+    return uniqueTags.map(tag => {
+        const filteredPosts = allPosts.filter(post =>
+            post.frontmatter?.tags?.includes(tag)
+        );
 
-  // Create a path for each tag
-  return uniqueTags.map(tag => {
-    const filteredPosts = allPosts.filter(post =>
-      post.frontmatter?.tags?.includes(tag)
-    );
-
-    return {
-      params: { tag },
-      props: { posts: filteredPosts, allPosts }
-    };
-  });
+        return {
+            params: { tag },
+            props: { posts: filteredPosts, allPosts }
+        };
+    });
 }
 
 const { tag } = Astro.params;
 const { posts, allPosts } = Astro.props;
 
 // Sort posts by date
-const sortedPosts = posts
-  .filter(post => post.frontmatter?.pubDate)
-  .sort((a, b) => {
-    return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
-  });
+const sortedPosts = posts.filter(post => post.frontmatter?.pubDate)
+                         .sort((a, b) => {
+                            return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
+                         });
 
 // Calculate category counts from all posts
 const categoryMap = new Map<string, number>();
 allPosts.forEach(post => {
-  const tags = post.frontmatter.tags || [];
-  tags.forEach((postTag: string) => {
-    categoryMap.set(postTag, (categoryMap.get(postTag) || 0) + 1);
-  });
+    const tags = post.frontmatter.tags || [];
+    tags.forEach((postTag: string) => {
+        categoryMap.set(postTag, (categoryMap.get(postTag) || 0) + 1);
+    });
 });
 
 const categories = Array.from(categoryMap.entries())
-  .map(([name, count]) => ({ name, count }))
-  .sort((a, b) => {
-    // Sort by count descending, then by name ascending for stable ordering
-    if (b.count !== a.count) {
-      return b.count - a.count;
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => {
+        // Sort by count descending, then by name ascending for stable ordering
+        if (b.count !== a.count) {
+          return b.count - a.count;
+        }
+      return a.name.localeCompare(b.name);
     }
-    return a.name.localeCompare(b.name);
-  });
+);
 
 const totalPosts = allPosts.filter(post => post.frontmatter?.pubDate).length;
 ---
 
-<BaseLayout
-  title={`Posts tagged "${tag}" - My Blog`}
-  description={`All blog posts tagged with ${tag}`}
->
+<BaseLayout title={`Posts tagged "${tag}" - My Blog`} description={`All blog posts tagged with ${tag}`}>
+
   <div class="posts-page-container">
-    <div class="posts-page-header">
-      <h1>Posts tagged with <span class="tag-name">"{tag}"</span></h1>
-      <p class="posts-subtitle">{sortedPosts.length} {sortedPosts.length === 1 ? 'post' : 'posts'} found</p>
-      <SearchBar />
-    </div>
-
-    <div class="posts-layout">
-      <CategoriesSidebar categories={categories} totalPosts={totalPosts} currentCategory={tag} />
-
-      <div class="posts-main-content">
-        <div class="articles-grid">
-          {sortedPosts.map(post => (
-            <ArticleCard
-              url={post.url || ''}
-              title={post.frontmatter.title}
-              description={post.frontmatter.description}
-              pubDate={new Date(post.frontmatter.pubDate)}
-              author={post.frontmatter.author}
-              image={post.frontmatter.image}
-              tags={post.frontmatter.tags}
-            />
-          ))}
-        </div>
+      <div class="posts-page-header">
+          <h1>Posts tagged with <span class="tag-name">"{tag}"</span></h1>
+          <p class="posts-subtitle">{sortedPosts.length} {sortedPosts.length === 1 ? 'post' : 'posts'} found</p>
+          <SearchBar />
       </div>
+
+      <div class="posts-layout">
+        <CategoriesSidebar categories={categories} totalPosts={totalPosts} currentCategory={tag} />
+          <div class="posts-main-content">
+              <div class="articles-grid">
+                  {sortedPosts.map(post => (
+                      <ArticleCard
+                          url={post.url || ''}
+                          title={post.frontmatter.title}
+                          description={post.frontmatter.description}
+                          pubDate={new Date(post.frontmatter.pubDate)}
+                          author={post.frontmatter.author}
+                          image={post.frontmatter.image}
+                          tags={post.frontmatter.tags}
+                      />
+                  ))}
+              </div>
+          </div>
     </div>
+    
   </div>
 </BaseLayout>
 

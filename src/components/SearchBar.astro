@@ -1,24 +1,22 @@
----
----
-
 <div class="search-container">
-  <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"></circle>
-    <path d="m21 21-4.35-4.35"></path>
-  </svg>
-  <input
-    type="text"
-    id="search-input"
-    class="search-input"
-    placeholder="Buscar posts..."
-    aria-label="Buscar posts"
-  />
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+    </svg>
+    <input
+        type="text"
+        id="search-input"
+        class="search-input"
+        placeholder="Search posts..."
+        aria-label="Search posts"
+    />
 </div>
 
 <style>
+  /* Search Bar */
   .search-container {
     position: relative;
-    max-width: 100%;
+    max-width: 600px;
   }
 
   .search-icon {
@@ -31,7 +29,24 @@
   }
 
   .search-input {
-    padding-left: 2.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    font-size: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    transition: border-color 0.2s, background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+  }
+
+  .search-input::placeholder {
+    color: var(--text-muted);
   }
 </style>
 
@@ -42,30 +57,30 @@
   const originalHeading = pageHeader?.innerHTML || '';
 
   searchInput?.addEventListener('input', (e) => {
-    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
-    const pageVisualSearchTerm = (e.target as HTMLInputElement).value;
+      const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+      const pageVisualSearchTerm = (e.target as HTMLInputElement).value;
 
-    // Update heading based on search term
-    if (searchTerm && pageHeader) {
-      pageHeader.innerHTML = `Posts tagged with: <span class="tag-name">"${pageVisualSearchTerm}"</span>`;
-    } else if (pageHeader) {
-      pageHeader.innerHTML = originalHeading;
-    }
-
-    articles.forEach((article) => {
-      const title = article.querySelector('.article-title')?.textContent?.toLowerCase() || '';
-      const description = article.querySelector('.article-description')?.textContent?.toLowerCase() || '';
-      const tags = article.querySelector('.article-tags')?.textContent?.toLowerCase() || '';
-
-      const matches = title.includes(searchTerm) ||
-                     description.includes(searchTerm) ||
-                     tags.includes(searchTerm);
-
-      if (matches || searchTerm === '') {
-        (article as HTMLElement).style.display = '';
-      } else {
-        (article as HTMLElement).style.display = 'none';
+      // Update heading based on search term
+      if (searchTerm && pageHeader) {
+        pageHeader.innerHTML = `Posts tagged with: <span class="tag-name">"${pageVisualSearchTerm}"</span>`;
+      } else if (pageHeader) {
+        pageHeader.innerHTML = originalHeading;
       }
-    });
+
+      articles.forEach((article) => {
+        const title = article.querySelector('.article-title')?.textContent?.toLowerCase() || '';
+        const description = article.querySelector('.article-description')?.textContent?.toLowerCase() || '';
+        const tags = article.querySelector('.article-tags')?.textContent?.toLowerCase() || '';
+
+        const matches = title.includes(searchTerm) ||
+                      description.includes(searchTerm) ||
+                      tags.includes(searchTerm);
+
+        if (matches || searchTerm === '') {
+          (article as HTMLElement).style.display = '';
+        } else {
+          (article as HTMLElement).style.display = 'none';
+        }
+      });
   });
 </script>
