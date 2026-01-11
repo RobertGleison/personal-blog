@@ -56,3 +56,9 @@ tags: ["tag1", "tag2", "tag3"]
 
 ### Step 3: Write Your Content
 Just write the content
+
+
+## Tools Used
+- Carbon: images of your source code
+- Gemini: images for post thumbnails
+- Draw.io: handmade fluxograms
