@@ -6,13 +6,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="error-container">
     <div class="error-content">
       <div class="error-code">404</div>
-      <h1 class="error-title">Ops! Página não encontrada</h1>
-      <p class="error-description">
-        Parece que você se perdeu... A página que você está procurando não existe ou foi movida.
-      </p>
+      <h1 class="error-title">Ops! Page not found</h1>
       <div class="error-actions">
-        <a href="/" class="button button-primary">Voltar para Home</a>
-        <a href="/posts/" class="button button-secondary">Ver Posts</a>
+        <a href="/" class="button button-primary">Go to Home</a>
+        <a href="/posts/" class="button button-secondary">View Posts</a>
       </div>
     </div>
   </div>
@@ -78,7 +75,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .button-primary {
     background: var(--accent-color);
-    color: white;
+    color: var(--accent-contrast);
+    border: 1px solid var(--border-color);
+
   }
 
   .button-primary:hover {
