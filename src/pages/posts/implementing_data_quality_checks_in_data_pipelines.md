@@ -1,13 +1,13 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: 'My First Blog Post'
-pubDate: 2022-07-01
-description: 'This is the first post of my new Astro blog.'
-author: 'Astro Learner'
+title: 'Implementing Data Quality Checks in Data Pipelines'
+pubDate: 2026-01-11
+description: 'This post walks through implementing effective quality checks in data pipelines to catch issues before they spread'
+author: 'Robert Gleison'
 image:
-    url: 'https://docs.astro.build/assets/rose.webp'
+    url: '/src/assets/implementing_data_quality_checks_in_data_pipelines/thumb.png'
     alt: 'The Astro logo on a dark background with a pink glow.'
-tags: ["astro", "blogging", "learning in public"]
+tags: ["Data Quality", "ETL", "Testing"]
 ---
 # My First Blog Post
 
