@@ -27,7 +27,7 @@ const { categories, totalPosts, currentCategory } = Astro.props;
 
         {categories.map(category => (
             <a
-              href={`/tags/${category.name.toLowerCase()}/`}
+              href={`/tags/${category.name}/`}
               class={`category-item ${currentCategory && currentCategory.toLowerCase() === category.name.toLowerCase() ? 'active' : ''}`}
             >
               <span class="category-name">{category.name}</span>

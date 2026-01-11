@@ -213,8 +213,10 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
   .post-content {
     font-family: 'JetBrains Mono', monospace;
+    text-align: justify;
     line-height: 1.8;
-    color: var(--text-secondary);
+    font-size: 20px;
+    color: var(--text-tertiary);
   }
 
   /* Article Content Styles */
@@ -275,6 +277,14 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
   .post-content :global(pre code) {
     background: none;
     padding: 0;
+  }
+
+  .post-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 2rem 0;
+    border-radius: 6px;
   }
 
   .post-navigation {
@@ -379,7 +389,11 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
   @media (max-width: 768px) {
     .post-container {
-      padding: 2rem 1rem;
+      padding: 2rem 1.5rem;
+    }
+
+    .post-content {
+      text-align: left;
     }
 
     .post-title {
