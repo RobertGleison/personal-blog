@@ -1,43 +1,58 @@
-# Astro Starter Kit: Minimal
+# Personal Blog
+This is my personal blog where I keep my articles. You can visit it in [robertech.dev](https://robertech.dev/)
 
-```sh
-pnpm create astro@latest -- --template minimal
+## Commands
+
+All commands are run from the root of the project:
+
+| Command | Action |
+| :-- | :-- |
+| `pnpm install` | Install dependencies |
+| `pnpm dev` | Start local dev server at `localhost:4321` |
+| `pnpm build` | Build production site to `./dist/` |
+| `pnpm preview` | Preview build locally before deploying |
+| `pnpm astro ...` | Run Astro CLI commands |
+
+Note: you need to have Node installed
+## Creating Blog Posts
+
+Blog posts are written in Markdown and stored in the [src/pages/posts/](src/pages/posts/) directory.
+
+### Step 1: Create a New Markdown File
+
+Create a new `.md` file in [src/pages/posts/](src/pages/posts/) with a descriptive filename:
+
+```bash
+src/pages/posts/my-new-post.md
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### Step 2: Add Frontmatter
 
-## 🚀 Project Structure
+Every post must include frontmatter at the top with the following fields:
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```markdown
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'Your Post Title'
+pubDate: 2024-01-15
+description: 'A brief description of your post for SEO and previews'
+author: 'Your Name'
+image:
+    url: 'https://example.com/image.jpg'
+    alt: 'Description of the image'
+tags: ["tag1", "tag2", "tag3"]
+---
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Frontmatter Fields Explained
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **layout** (required): Must be `../../layouts/MarkdownPostLayout.astro`
+- **title** (required): The post title displayed on cards and the post page
+- **pubDate** (required): Publication date in YYYY-MM-DD format
+- **description** (required): Brief summary for SEO and post cards
+- **author** (optional): Author name
+- **image** (optional): Featured image with `url` and `alt` text
+- **tags** (required): Array of tags for categorization and filtering
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Step 3: Write Your Content
+Just write the content
