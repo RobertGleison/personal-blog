@@ -48,8 +48,8 @@ Como pode-se ver abaixo, estou criando a tabela `customer_orders` utilizando um 
 <br>
 
 ##  Porque testar dados?
-A resposta é meio óbvia. Não queremos que clientes ou indivíduos tomem decisões erradas baseados em dados errados. Além disso, um erro nos dados podem ocasionar em:
-- Perca de confiança e autoridade;
+A resposta é meio óbvia. Não queremos que clientes ou indivíduos tomem decisões erradas baseados em dados errados. Além disso, erros nos dados podem ocasionar em:
+- Perda de confiança e autoridade;
 - Problemas legais ou possívels ações judiciais;
 - Bugs e sistemas fora de funcionalidade;
 
