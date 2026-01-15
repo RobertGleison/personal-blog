@@ -32,6 +32,10 @@ tags: ["Data Quality", "Data Engineering", "Testing"]
   - [Dashboard de qualidade de dados](#dashboard-de-qualidade-de-dados)
 - [Resumo](#resumo)
 
+<br>
+
+---
+
 ## Overview
 Primeiro é importante notar que embora os conceitos de qualidade de dados sejam imutáveis, existem inúmeras maneiras diferentes de implementar checks de qualidade de dados, estes dependendo de variáveis como:
 
