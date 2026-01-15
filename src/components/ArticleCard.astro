@@ -34,7 +34,14 @@ const formatDate = (date: Date) => {
             <h2 class="article-title">{title}</h2>
             <p class="article-description">{description}</p>
             <div class="article-meta">
-                <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</tim>
+                {tags && tags.length > 0 && (
+                    <div class="article-tags">
+                        {tags.map((tag) => (
+                            <span class="tag-badge">{tag}</span>
+                        ))}
+                    </div>
+                )}
+                <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
             </div>
         </div>
     </a>
@@ -96,10 +103,12 @@ const formatDate = (date: Date) => {
 
   .article-meta {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 0.5rem;
     font-size: 0.875rem;
     color: var(--text-muted);
-    margin-bottom: 1rem;
+    margin-top: auto;
     transition: color 0.3s ease;
   }
 
@@ -118,7 +127,6 @@ const formatDate = (date: Date) => {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    padding: 0 1.5rem 1.5rem 1.5rem;
   }
 
   .tag-badge {
