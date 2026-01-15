@@ -8,7 +8,6 @@ export default defineConfig({
   integrations: [
     expressiveCode({
       plugins: [pluginLineNumbers()],
-      themes: ['github-dark'],
       styleOverrides: {
         borderRadius: '6px',
         codeFontFamily: "'JetBrains Mono', monospace",
