@@ -236,6 +236,11 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     margin-bottom: 1rem;
   }
 
+  .post-content :global(strong) {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
   .post-content :global(a) {
     color: var(--accent-color);
     text-decoration: underline;

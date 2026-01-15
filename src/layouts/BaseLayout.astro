@@ -34,12 +34,22 @@ const { title = 'My Blog', description = 'A simple blog built with Astro' } = As
         <title>{title}</title>
         <script is:inline>
           // Initialize theme before page renders to prevent flash
-          const theme = localStorage?.getItem('theme') ||
-                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          function applyTheme() {
+            const theme = localStorage?.getItem('theme') ||
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
-          if (theme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
+            if (theme === 'dark') {
+              document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+              document.documentElement.removeAttribute('data-theme');
+            }
           }
+
+          // Apply on initial load
+          applyTheme();
+
+          // Re-apply after View Transitions swap (before render)
+          document.addEventListener('astro:after-swap', applyTheme);
         </script>
     </head>
     <body>
