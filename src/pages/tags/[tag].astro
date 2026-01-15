@@ -54,7 +54,7 @@ const categories = Array.from(categoryMap.entries())
 const totalPosts = allPosts.filter(post => post.frontmatter?.pubDate).length;
 ---
 
-<BaseLayout title={`Posts tagged "${tag}" - My Blog`} description={`All blog posts tagged with ${tag}`}>
+<BaseLayout title={`Posts | Robert Gleison`} description={`All blog posts tagged with ${tag}`}>
 
   <div class="posts-page-container">
       <div class="posts-page-header">
@@ -81,7 +81,7 @@ const totalPosts = allPosts.filter(post => post.frontmatter?.pubDate).length;
               </div>
           </div>
     </div>
-    
+
   </div>
 </BaseLayout>
 
