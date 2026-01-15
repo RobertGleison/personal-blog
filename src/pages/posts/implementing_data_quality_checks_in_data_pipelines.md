@@ -79,7 +79,7 @@ Aqui testamos valores de colunas específicas. Alguns exemplos são:
 
 - **Teste de unicidade:** Garante que cada valor em uma coluna apareça apenas uma vez, prevenindo duplicações indesejadas. Embora primary keys já tenham unicidade por definição, este teste é essencial para chaves naturais (como CPF, email) e identificadores únicos (UIDs) que precisam ser únicos por regra de negócio. Por exemplo, se dois clientes compartilharem o mesmo email, isso pode indicar cadastro duplicado ou erro na ingestão de dados.
 
-```
+```yml
 DBT example:
 - name: customer_email
   description: Email do cliente. Deve ser único para evitar duplicação de cadastros
@@ -90,7 +90,7 @@ DBT example:
 <br>
 
 - **Teste de nulidade:** Valida se colunas obrigatórias contêm valores nulos, garantindo a integridade dos dados essenciais. Este teste é fundamental para campos que são críticos para o negócio ou para o funcionamento de sistemas downstream. Por exemplo, um cadastro de usuário sem email pode impedir envio de notificações importantes, ou uma transação sem data pode impossibilitar análises temporais.
-```
+```yml
 DBT example:
 - name: customer_email
   description: Email do cliente. Campo obrigatório para comunicação
@@ -101,7 +101,7 @@ DBT example:
 <br>
 
 - **Teste de valores aceitáveis:** Verifica se os valores de uma coluna estão dentro de um conjunto ou intervalo permitido, prevenindo dados inválidos ou inconsistentes. Este teste é crucial para colunas com valores categóricos (status, tipos, categorias) ou para validar ranges lógicos. Exemplos práticos: uma coluna booleana deve conter apenas true/false, ano de nascimento não pode ser maior que o ano atual, status de pedido deve ser apenas 'placed', 'shipped', 'completed' ou 'returned' - qualquer valor fora destes indica erro de sistema ou manipulação incorreta de dados.
-```
+```yml
 DBT example:
 - name: order_status
   description: Keep the order status. Possible values are: placed, shipped, completed, returned
@@ -124,7 +124,7 @@ DBT example:
 
 ![FK](/implementing_data_quality_checks_in_data_pipelines/Fk.png)
 
-```
+```yml
 DBT example:
 - name: product_id
   description: Reference to product table
@@ -137,7 +137,7 @@ DBT example:
 ### Row level
 
 - **Teste de consistência:** Valida a coerência lógica entre múltiplas colunas da mesma linha, garantindo que os dados fazem sentido quando analisados em conjunto. Este teste captura inconsistências que passariam despercebidas em validações de colunas individuais. Exemplos práticos: um pedido com status 'completed' deve obrigatoriamente ter uma data em `completed_at` preenchida; o campo `total` deve ser matematicamente igual a `subtotal + impostos`; uma data de fim não pode ser anterior à data de início. Esses testes previnem estados impossíveis ou logicamente inválidos nos dados.
-```
+```yml
 DBT example (using dbt-utils package):
 tests:
   - dbt_utils.expression_is_true:
@@ -153,7 +153,7 @@ tests:
 ### Table level
 
 - **Teste de granularidade:** Define e valida o nível de detalhe esperado em cada linha da tabela, prevenindo duplicações indesejadas. Cada tabela possui uma "grain" (granularidade) que determina o que cada linha representa. Por exemplo, em uma tabela `orders`, cada linha pode representar "um produto comprado por um cliente em um determinado momento por um valor específico". Neste caso, a combinação (`customer_id`, `product_id`, `order_datetime`, `total_value`) deve ser única, se duas linhas têm exatamente os mesmos valores, provavelmente são duplicatas. **Ponto importante:** não inclua o ID auto-gerado neste teste, pois duplicatas verdadeiras teriam campos de negócio idênticos mas IDs diferentes, fazendo o teste não detectar o problema. Este teste garante que você entende e mantém a granularidade correta conforme a regra de negócio.
-```
+```yml
 DBT example (using dbt-utils package):
 
 - name: customer_orders
@@ -171,7 +171,7 @@ DBT example (using dbt-utils package):
 <br>
 
 - **Teste de freshness (Frescor dos dados):** Monitora se os dados estão sendo atualizados conforme esperado, detectando quebras silenciosas na ingestão ou processamento. Este teste é crítico para pipelines com cadências definidas (diária, horária, em tempo real). Por exemplo, se uma tabela é atualizada diariamente e de repente fica 3 dias sem receber novos dados, isso indica falha na fonte, quebra no job de ingestão, ou problemas de conectividade. Detectar isso rapidamente evita que decisões sejam tomadas com base em dados defasados.
-```
+```yml
 DBT example (configured at source level in schema.yml):
 sources:
   - name: raw_data
@@ -190,7 +190,7 @@ sources:
 <br>
 
 - **Teste de paridade com source:** Garante que a ingestão de dados da origem foi completa e bem-sucedida, comparando contagens de linhas entre a tabela source e a tabela de destino. Este teste é essencial em processos de ETL/ELT para validar que nenhum dado foi perdido ou duplicado durante a transferência. Se a tabela de origem tem 10.000 registros mas sua tabela ingerida tem apenas 8.500, isso sinaliza perda de dados no processo de cópia. Inversamente, ter mais linhas que a source pode indicar duplicação. Este teste valida a integridade do processo de ingestão desde a origem.
-```
+```yml
 DBT example (using dbt-utils package):
 tests:
   - dbt_utils.equal_rowcount:
@@ -215,7 +215,7 @@ tests:
 
 Um exemplo de comparative test para rastrear número de pacientes é:
 
-```
+```sql
 WITH base_counts AS (
   SELECT
     'pacientes' AS tabela,
