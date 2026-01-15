@@ -50,18 +50,27 @@
 </style>
 
 <script>
-    const handleToggleClick = () => {
-        const element = document.documentElement;
-        const currentTheme = element.getAttribute('data-theme');
+    function setupThemeToggle() {
+        const themeToggle = document.getElementById("themeToggle");
+        if (!themeToggle) return;
 
-        if (currentTheme === 'dark') {
-          element.removeAttribute('data-theme');
-          localStorage.setItem("theme", "light");
-        } else {
-          element.setAttribute('data-theme', 'dark');
-          localStorage.setItem("theme", "dark");
-        }
+        // Remove existing listener to prevent duplicates
+        themeToggle.replaceWith(themeToggle.cloneNode(true));
+
+        document.getElementById("themeToggle")?.addEventListener("click", () => {
+            const element = document.documentElement;
+            const currentTheme = element.getAttribute('data-theme');
+
+            if (currentTheme === 'dark') {
+                element.removeAttribute('data-theme');
+                localStorage.setItem("theme", "light");
+            } else {
+                element.setAttribute('data-theme', 'dark');
+                localStorage.setItem("theme", "dark");
+            }
+        });
     }
 
-    document.getElementById("themeToggle")?.addEventListener("click", handleToggleClick);
+    // Run on initial load and after every client-side navigation
+    document.addEventListener('astro:page-load', setupThemeToggle);
 </script>
