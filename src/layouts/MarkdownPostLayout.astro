@@ -215,7 +215,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     font-family: 'JetBrains Mono', monospace;
     text-align: justify;
     line-height: 1.8;
-    font-size: 20px;
+    font-size: 17px;
     color: var(--text-tertiary);
   }
 
@@ -245,6 +245,10 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
   .post-content :global(ol) {
     margin-bottom: 1rem;
     padding-left: 2rem;
+  }
+
+  .post-content :global(h2:first-child + ul) {
+    font-size: 14px;
   }
 
   .post-content :global(li) {
@@ -278,6 +282,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
     background: none;
     padding: 0;
   }
+
 
   .post-content :global(img) {
     max-width: 100%;
