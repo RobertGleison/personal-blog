@@ -54,22 +54,36 @@ import logo from '../assets/logo.png';
 </nav>
 
 <script>
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    function initializeMenu() {
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
 
-    mobileMenuToggle?.addEventListener('click', () => {
-        navLinks?.classList.toggle('active');
-        mobileMenuToggle?.classList.toggle('active');
-    });
+        if (!mobileMenuToggle || !navLinks) return;
 
-    // Close menu when clicking a link
-    const links = document.querySelectorAll('.nav-links a');
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks?.classList.remove('active');
-            mobileMenuToggle?.classList.remove('active');
+        // Remove any existing listeners by cloning and replacing
+        const newToggle = mobileMenuToggle.cloneNode(true);
+        mobileMenuToggle.parentNode?.replaceChild(newToggle, mobileMenuToggle);
+
+        newToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            newToggle.classList.toggle('active');
         });
-    });
+
+        // Close menu when clicking a link
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                newToggle.classList.remove('active');
+            });
+        });
+    }
+
+    // Initialize on page load
+    initializeMenu();
+
+    // Re-initialize after page transitions (for Astro view transitions)
+    document.addEventListener('astro:page-load', initializeMenu);
 </script>
 
 <style>
