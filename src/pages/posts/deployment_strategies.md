@@ -435,7 +435,7 @@ spec:
   template:
     metadata:
       labels:
-        app: my-app      # Mesma label! Service escolhe ambos
+        app: my-app      # Mesma label, Service escolhe ambos
         track: canary    # Label específica para identificação
     spec:
       containers:
@@ -453,7 +453,7 @@ metadata:
 spec:
   selector:
     app: my-app          # Seleciona AMBOS: stable E canary
-                         # Não filtramos por "track", então pega os dois!
+                         # Não filtramos por "track", então pega os dois
   ports:
   - port: 80
     targetPort: 8080
@@ -468,7 +468,7 @@ spec:
 kubectl scale deployment/my-app-canary --replicas=1   # 1 pod canary
 kubectl scale deployment/my-app-stable --replicas=9   # 9 pods stable
 # Total: 10 pods → Canary recebe ~10% do tráfego
-# Monitorar logs, métricas, erros. Se tudo OK, avançar!
+# Monitorar logs, métricas, erros. Se tudo OK, avançar
 
 # ========================================
 # Fase 2: 50% canary (confiança aumentando)
@@ -476,7 +476,7 @@ kubectl scale deployment/my-app-stable --replicas=9   # 9 pods stable
 kubectl scale deployment/my-app-canary --replicas=5   # 5 pods canary
 kubectl scale deployment/my-app-stable --replicas=5   # 5 pods stable
 # Total: 10 pods → Canary recebe ~50% do tráfego
-# Continuar monitorando. Se ainda estável, finalizar!
+# Continuar monitorando. Se ainda estável, finalizar
 
 # ========================================
 # Fase 3: 100% canary (nova versão se torna a padrão)
@@ -513,7 +513,7 @@ Fase 3 (100%):
 
 <br>
 
-**Vantagem:** Se a v2.0 tiver um bug crítico, apenas 10% dos usuários são afetados na Fase 1. Com Blue/Green, seria 100%!
+**Vantagem:** Se a v2.0 tiver um bug crítico, apenas 10% dos usuários são afetados na Fase 1. Com Blue/Green, seria 100%
 
 
 ## Feature Flag Platforms
