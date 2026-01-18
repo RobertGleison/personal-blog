@@ -1,7 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -57,6 +56,5 @@ const { title = 'My Blog', description = 'A simple blog built with Astro' } = As
           <main>
               <slot />
           </main>
-        <Footer />
     </body>
 </html>
