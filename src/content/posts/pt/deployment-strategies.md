@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Estratégias de Deployment'
 pubDate: 2026-01-18
 description: 'Um review sobre estratégias de deployment após presenciar um SaaS outage de 1 dia que implementou um Big Bang deployment.'

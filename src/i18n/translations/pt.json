@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "home": "Início",
+    "posts": "Posts"
+  },
+  "home": {
+    "welcome": "Bem-vindo ao meu blog pessoal!",
+    "intro": "Este é um blog pessoal para me ajudar a solidificar conteúdo na minha mente, mas se for útil para outra pessoa, fico feliz.",
+    "about": "Sou engenheiro de dados e programador backend. Gosto muito de estudar design de sistemas, infraestrutura, cloud e plataformas de dados.",
+    "recentPosts": "Posts Recentes",
+    "viewAllPosts": "Ver todos os posts"
+  },
+  "posts": {
+    "title": "Posts",
+    "subtitle": "Artigos técnicos e reflexões sobre programação e tecnologia.",
+    "searchPlaceholder": "Buscar posts...",
+    "noResults": "Nenhum post encontrado.",
+    "allPosts": "Todos os Posts"
+  },
+  "categories": {
+    "title": "CATEGORIAS",
+    "all": "Todos"
+  },
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Próximo"
+  },
+  "article": {
+    "back": "Voltar",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "scrollToTop": "Voltar ao topo"
+  },
+  "footer": {
+    "copyright": "Todos os direitos reservados."
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "A página que você está procurando não existe.",
+    "goHome": "Ir para Início"
+  },
+  "language": {
+    "switchTo": "Mudar para"
+  }
+}

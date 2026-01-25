@@ -5,6 +5,13 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 
 // https://astro.build/config
 export default defineConfig({
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'pt'],
+    routing: {
+      prefixDefaultLocale: true,
+    },
+  },
   integrations: [
     expressiveCode({
       plugins: [pluginLineNumbers()],

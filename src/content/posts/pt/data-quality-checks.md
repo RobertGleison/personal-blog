@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Implementando Data Quality em Pipelines de Dados'
 pubDate: 2026-01-11
 description: 'Este post é um overview do que eu penso sobre qualidade de dados e como implementar no dia a dia.'

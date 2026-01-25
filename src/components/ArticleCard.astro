@@ -1,4 +1,7 @@
 ---
+import { type Locale, defaultLocale } from '../i18n/config';
+import { formatDate } from '../i18n/utils';
+
 interface Props {
     url: string;
     title: string;
@@ -10,17 +13,10 @@ interface Props {
       alt: string;
     };
     tags?: string[];
+    locale?: Locale;
 }
 
-const { url, title, description, pubDate, author, image, tags } = Astro.props;
-
-const formatDate = (date: Date) => {
-    return date.toLocaleDateString('pt-BR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-};
+const { url, title, description, pubDate, author, image, tags, locale = defaultLocale } = Astro.props;
 ---
 
 <article class="article-card">
@@ -41,7 +37,7 @@ const formatDate = (date: Date) => {
                         ))}
                     </div>
                 )}
-                <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+                <time datetime={pubDate.toISOString()}>{formatDate(pubDate, locale)}</time>
             </div>
         </div>
     </a>

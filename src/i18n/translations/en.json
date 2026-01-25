@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "home": "Home",
+    "posts": "Posts"
+  },
+  "home": {
+    "welcome": "Welcome to my personal blog!",
+    "intro": "This is a personal blog to help me solidify content in my mind, but if it's useful to someone else, I'm happy.",
+    "about": "I am a data engineer and backend programmer. I really enjoy studying system design, infrastructure, cloud, and data platforms.",
+    "recentPosts": "Recent Posts",
+    "viewAllPosts": "View all posts"
+  },
+  "posts": {
+    "title": "Posts",
+    "subtitle": "Technical articles and reflections about programming and technology.",
+    "searchPlaceholder": "Search posts...",
+    "noResults": "No posts found.",
+    "allPosts": "All Posts"
+  },
+  "categories": {
+    "title": "CATEGORIES",
+    "all": "All"
+  },
+  "pagination": {
+    "previous": "Prev",
+    "next": "Next"
+  },
+  "article": {
+    "back": "Back",
+    "previous": "Previous",
+    "next": "Next",
+    "scrollToTop": "Scroll to top"
+  },
+  "footer": {
+    "copyright": "All rights reserved."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn'translate exist.",
+    "goHome": "Go to Home"
+  },
+  "language": {
+    "switchTo": "Switch to"
+  }
+}
