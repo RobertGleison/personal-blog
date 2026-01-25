@@ -1,3 +1,14 @@
+---
+import { type Locale, defaultLocale } from '../i18n/config';
+import { translate } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+---
+
 <div class="search-container">
     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"></circle>
@@ -7,8 +18,8 @@
         type="text"
         id="search-input"
         class="search-input"
-        placeholder="Search posts..."
-        aria-label="Search posts"
+        placeholder={translate(locale, 'posts.searchPlaceholder')}
+        aria-label={translate(locale, 'posts.searchPlaceholder')}
     />
 </div>
 
@@ -16,7 +27,7 @@
   /* Search Bar */
   .search-container {
     position: relative;
-    /* max-width: 600px; */
+    margin-bottom: 1.5rem;
   }
 
   .search-icon {
@@ -51,12 +62,33 @@
 </style>
 
 <script>
-  const searchInput = document.getElementById('search-input') as HTMLInputElement;
-  const articles = document.querySelectorAll('.article-card');
-  const pageHeader = document.querySelector('.posts-page-header h1') as HTMLElement;
-  const originalHeading = pageHeader?.innerHTML || '';
+  function initPostsFilter() {
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    const articles = document.querySelectorAll('.article-card');
+    const categoryButtons = document.querySelectorAll('.category-link[data-tag]');
+    const pageHeader = document.querySelector('.posts-page-header h1') as HTMLElement;
+    const originalHeading = pageHeader?.innerHTML || '';
+    let activeTag = 'all';
 
-  searchInput?.addEventListener('input', (e) => {
+    function filterArticles() {
+      const searchTerm = searchInput?.value.toLowerCase() || '';
+
+      articles.forEach((article) => {
+        const title = article.querySelector('.article-title')?.textContent?.toLowerCase() || '';
+        const description = article.querySelector('.article-description')?.textContent?.toLowerCase() || '';
+        const tags = article.querySelector('.article-tags')?.textContent?.toLowerCase() || '';
+
+        const matchesSearch = !searchTerm || title.includes(searchTerm) ||
+                      description.includes(searchTerm) ||
+                      tags.includes(searchTerm);
+
+        const matchesTag = activeTag === 'all' || tags.includes(activeTag);
+
+        (article as HTMLElement).style.display = (matchesSearch && matchesTag) ? '' : 'none';
+      });
+    }
+
+    searchInput?.addEventListener('input', (e) => {
       const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
       const pageVisualSearchTerm = (e.target as HTMLInputElement).value;
 
@@ -67,20 +99,29 @@
         pageHeader.innerHTML = originalHeading;
       }
 
-      articles.forEach((article) => {
-        const title = article.querySelector('.article-title')?.textContent?.toLowerCase() || '';
-        const description = article.querySelector('.article-description')?.textContent?.toLowerCase() || '';
-        const tags = article.querySelector('.article-tags')?.textContent?.toLowerCase() || '';
+      filterArticles();
+    });
 
-        const matches = title.includes(searchTerm) ||
-                      description.includes(searchTerm) ||
-                      tags.includes(searchTerm);
+    categoryButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tag = (btn as HTMLElement).dataset.tag || 'all';
+        activeTag = tag;
 
-        if (matches || searchTerm === '') {
-          (article as HTMLElement).style.display = '';
-        } else {
-          (article as HTMLElement).style.display = 'none';
-        }
+        // Update active state
+        categoryButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Clear search input when switching tags
+        if (searchInput) searchInput.value = '';
+
+        // Reset heading when switching categories
+        if (pageHeader) pageHeader.innerHTML = originalHeading;
+
+        filterArticles();
       });
-  });
+    });
+  }
+
+  initPostsFilter();
+  document.addEventListener('astro:page-load', initPostsFilter);
 </script>

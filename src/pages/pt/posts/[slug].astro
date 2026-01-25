@@ -47,7 +47,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       {post.data.tags && (
         <div class="post-tags">
           {post.data.tags.map((tag: string) => (
-            <a href={`/${locale}/tags/${tag.toLowerCase()}/`} class="tag-badge">{tag}</a>
+            <span class="tag-badge">{tag}</span>
           ))}
         </div>
       )}

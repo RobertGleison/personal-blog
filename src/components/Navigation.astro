@@ -3,7 +3,7 @@ import ThemeToggle from './ThemeToggle.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import logo from '../assets/logo.png';
 import { type Locale, defaultLocale } from '../i18n/config';
-import { translate } from '../i18n/utils';
+import { translate, getLocalePrefix } from '../i18n/utils';
 
 interface Props {
   locale?: Locale;
@@ -11,12 +11,13 @@ interface Props {
 
 const { locale = defaultLocale } = Astro.props;
 const currentPath = Astro.url.pathname;
+const localePrefix = getLocalePrefix(locale);
 ---
 
 <nav class="navigation">
     <div class="nav-container">
         <div class="nav-brand">
-          <a href={`/${locale}/`}>
+          <a href={`${localePrefix}/`}>
             <img src={logo.src} alt="robertech.dev logo" class="logo" />
             <span>robertech.dev</span>
           </a>
@@ -35,8 +36,8 @@ const currentPath = Astro.url.pathname;
         </button>
 
       <div class="nav-links">
-          <a href={`/${locale}/`}>{translate(locale, 'nav.home')}</a>
-          <a href={`/${locale}/posts/`}>{translate(locale, 'nav.posts')}</a>
+          <a href={`${localePrefix}/`}>{translate(locale, 'nav.home')}</a>
+          <a href={`${localePrefix}/posts/`}>{translate(locale, 'nav.posts')}</a>
           <div class="social-links">
               <a href="https://github.com/RobertGleison" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -50,7 +51,7 @@ const currentPath = Astro.url.pathname;
                       <circle cx="4" cy="4" r="2"></circle>
                   </svg>
               </a>
-              <a href={`/${locale}/rss.xml`} target="_blank" rel="noopener noreferrer" aria-label="RSS Feed">
+              <a href={`${localePrefix}/rss.xml`} target="_blank" rel="noopener noreferrer" aria-label="RSS Feed">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M4 11a9 9 0 0 1 9 9"></path>
                       <path d="M4 4a16 16 0 0 1 16 16"></path>

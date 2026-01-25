@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { translate, formatDate } from '../../../i18n/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { translate, formatDate } from '../../i18n/utils';
 
 const locale = 'en';
 
@@ -29,7 +29,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
 <BaseLayout title={post.data.title} description={post.data.description} locale={locale}>
   <article class="post-container">
-    <a href={`/${locale}/posts/`} class="back-button">
+    <a href="/posts/" class="back-button">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 12H5M12 19l-7-7 7-7"/>
       </svg>
@@ -47,7 +47,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       {post.data.tags && (
         <div class="post-tags">
           {post.data.tags.map((tag: string) => (
-            <a href={`/${locale}/tags/${tag.toLowerCase()}/`} class="tag-badge">{tag}</a>
+            <span class="tag-badge">{tag}</span>
           ))}
         </div>
       )}
@@ -65,13 +65,13 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
     <nav class="post-navigation">
       {prevPost && (
-        <a href={`/${locale}/posts/${prevPost.slug.replace('en/', '')}/`} class="nav-link prev">
+        <a href={`/posts/${prevPost.slug.replace('en/', '')}/`} class="nav-link prev">
           <span class="nav-label">{translate(locale, 'article.previous')}</span>
           <span class="nav-title">{prevPost.data.title}</span>
         </a>
       )}
       {nextPost && (
-        <a href={`/${locale}/posts/${nextPost.slug.replace('en/', '')}/`} class="nav-link next">
+        <a href={`/posts/${nextPost.slug.replace('en/', '')}/`} class="nav-link next">
           <span class="nav-label">{translate(locale, 'article.next')}</span>
           <span class="nav-title">{nextPost.data.title}</span>
         </a>

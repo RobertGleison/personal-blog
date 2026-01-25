@@ -4,7 +4,7 @@ pubDate: 2026-01-25
 description: 'Importantes configurações para melhorar sua experiência com postgreSQL.'
 author: 'Robert Gleison'
 image:
-  url: '/postgres_configurations/thumb.png'
+  url: '/postgres_configurations/thumb_postgres.png'
   alt: 'Visualização das configurações do PostgreSQL.'
 tags: ["Infrastructure", "Software Engineering"]
 ---

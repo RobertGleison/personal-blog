@@ -1,8 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import ArticleCard from '../../../components/ArticleCard.astro';
-import { translate } from '../../../i18n/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import { translate } from '../../i18n/utils';
 
 const locale = 'en';
 
@@ -43,27 +44,28 @@ const categories = Array.from(allCategoryMap.entries())
             <h3>{translate(locale, 'categories.title')}</h3>
             <ul class="category-list">
               <li>
-                <a href={`/${locale}/posts/`} class="category-link active">
+                <button type="button" class="category-link active" data-tag="all">
                   <span class="category-name">{translate(locale, 'categories.all')}</span>
                   <span class="category-count">{allPosts.length}</span>
-                </a>
+                </button>
               </li>
               {categories.map((category) => (
                 <li>
-                  <a href={`/${locale}/tags/${category.name.toLowerCase()}/`} class="category-link">
+                  <button type="button" class="category-link" data-tag={category.name.toLowerCase()}>
                     <span class="category-name">{category.name}</span>
                     <span class="category-count">{category.count}</span>
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
           </aside>
 
           <div class="posts-main-content">
+            <SearchBar locale={locale} />
             <div class="articles-grid">
                 {sortedPosts.map((post) => (
                     <ArticleCard
-                        url={`/${locale}/posts/${post.slug.replace('en/', '')}/`}
+                        url={`/posts/${post.slug.replace('en/', '')}/`}
                         title={post.data.title}
                         description={post.data.description}
                         pubDate={post.data.pubDate}
@@ -136,6 +138,7 @@ const categories = Array.from(allCategoryMap.entries())
 
   .category-link {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 0.75rem;
@@ -143,6 +146,10 @@ const categories = Array.from(allCategoryMap.entries())
     text-decoration: none;
     color: var(--text-muted);
     transition: all 0.2s;
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
   }
 
   .category-link:hover {

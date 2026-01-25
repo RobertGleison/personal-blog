@@ -6,7 +6,7 @@ author: 'Robert Gleison'
 image:
   url: '/implementing_data_quality_checks_in_data_pipelines/thumb.png'
   alt: 'An abstract image of a cube in the center surrounded by other cubes linked.'
-tags: ["Data Quality", "Data Engineering", "Testing"]
+tags: ["Data Quality", "Data Engineering"]
 ---
 
 ## Índice

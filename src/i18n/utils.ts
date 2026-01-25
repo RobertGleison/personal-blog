@@ -38,6 +38,9 @@ export function formatDate(date: Date, locale: Locale): string {
 
 export function getLocalizedPath(path: string, locale: Locale): string {
   const cleanPath = path.replace(/^\/(en|pt)/, '');
+  if (locale === defaultLocale) {
+    return cleanPath || '/';
+  }
   return `/${locale}${cleanPath || '/'}`;
 }
 
@@ -46,6 +49,10 @@ export function getAlternateLocale(currentLocale: Locale): Locale {
 }
 
 export function getLocaleFromPath(path: string): Locale {
-  const match = path.match(/^\/(en|pt)/);
+  const match = path.match(/^\/(pt)(?:\/|$)/);
   return (match?.[1] as Locale) || defaultLocale;
+}
+
+export function getLocalePrefix(locale: Locale): string {
+  return locale === defaultLocale ? '' : `/${locale}`;
 }
