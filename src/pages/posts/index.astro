@@ -39,6 +39,8 @@ const categories = Array.from(allCategoryMap.entries())
             <p class="posts-subtitle">{translate(locale, 'posts.subtitle')}</p>
         </div>
 
+      <SearchBar locale={locale} />
+
       <div class="posts-layout">
           <aside class="categories-sidebar">
             <h3>{translate(locale, 'categories.title')}</h3>
@@ -61,7 +63,6 @@ const categories = Array.from(allCategoryMap.entries())
           </aside>
 
           <div class="posts-main-content">
-            <SearchBar locale={locale} />
             <div class="articles-grid">
                 {sortedPosts.map((post) => (
                     <ArticleCard
