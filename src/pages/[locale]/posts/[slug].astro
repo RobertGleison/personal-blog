@@ -2,22 +2,27 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { translate, formatDate } from '../../../i18n/utils';
-
-const locale = 'pt';
+import { locales, type Locale } from '../../../i18n/config';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', ({ id }) => id.startsWith('pt/'));
-  return posts.map((post) => ({
-    params: { slug: post.slug.replace('pt/', '') },
-    props: { post },
-  }));
+  const paths = [];
+  for (const locale of locales) {
+    const posts = await getCollection('posts', ({ id }) => id.startsWith(`${locale}/`));
+    for (const post of posts) {
+      paths.push({
+        params: { locale, slug: post.slug.replace(`${locale}/`, '') },
+        props: { post, locale },
+      });
+    }
+  }
+  return paths;
 }
 
-const { post } = Astro.props;
+const { post, locale } = Astro.props as { post: any; locale: Locale };
 const { Content } = await post.render();
 
 // Get all posts for navigation
-const allPosts = await getCollection('posts', ({ id }) => id.startsWith('pt/'));
+const allPosts = await getCollection('posts', ({ id }) => id.startsWith(`${locale}/`));
 const sortedPosts = allPosts.sort((a, b) =>
   b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
@@ -25,6 +30,8 @@ const sortedPosts = allPosts.sort((a, b) =>
 const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
 const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+
+const authorLabel = locale === 'pt' ? 'por' : 'by';
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} locale={locale}>
@@ -42,7 +49,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
         <time datetime={post.data.pubDate.toISOString()}>
           {formatDate(post.data.pubDate, locale)}
         </time>
-        {post.data.author && <span class="author">por {post.data.author}</span>}
+        {post.data.author && <span class="author">{authorLabel} {post.data.author}</span>}
       </div>
       {post.data.tags && (
         <div class="post-tags">
@@ -65,13 +72,13 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
     <nav class="post-navigation">
       {prevPost && (
-        <a href={`/${locale}/posts/${prevPost.slug.replace('pt/', '')}/`} class="nav-link prev">
+        <a href={`/${locale}/posts/${prevPost.slug.replace(`${locale}/`, '')}/`} class="nav-link prev">
           <span class="nav-label">{translate(locale, 'article.previous')}</span>
           <span class="nav-title">{prevPost.data.title}</span>
         </a>
       )}
       {nextPost && (
-        <a href={`/${locale}/posts/${nextPost.slug.replace('pt/', '')}/`} class="nav-link next">
+        <a href={`/${locale}/posts/${nextPost.slug.replace(`${locale}/`, '')}/`} class="nav-link next">
           <span class="nav-label">{translate(locale, 'article.next')}</span>
           <span class="nav-title">{nextPost.data.title}</span>
         </a>

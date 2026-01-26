@@ -27,7 +27,7 @@ const currentPath = Astro.url.pathname;
         {locales.map((loc) => (
           <link rel="alternate" hreflang={loc} href={getLocalizedPath(currentPath, loc)} />
         ))}
-        <link rel="alternate" hreflang="x-default" href={getLocalizedPath(currentPath, defaultLocale)} />
+        <link rel="alternate" hreflang="x-default" href={`/en${currentPath.replace(/^\/(en|pt)/, '') || '/'}`} />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">

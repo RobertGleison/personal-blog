@@ -1,13 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
-import SearchBar from '../../components/SearchBar.astro';
-import { translate } from '../../i18n/utils';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import SearchBar from '../../../components/SearchBar.astro';
+import { translate } from '../../../i18n/utils';
+import { locales, type Locale } from '../../../i18n/config';
 
-const locale = 'en';
+export function getStaticPaths() {
+  return locales.map((l) => ({ params: { locale: l } }));
+}
 
-const allPosts = await getCollection('posts', ({ id }) => id.startsWith('en/'));
+const locale = Astro.params.locale as Locale;
+
+const allPosts = await getCollection('posts', ({ id }) => id.startsWith(`${locale}/`));
 const sortedPosts = allPosts.sort((a, b) =>
   b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
@@ -66,7 +71,7 @@ const categories = Array.from(allCategoryMap.entries())
             <div class="articles-grid">
                 {sortedPosts.map((post) => (
                     <ArticleCard
-                        url={`/posts/${post.slug.replace('en/', '')}/`}
+                        url={`/${locale}/posts/${post.slug.replace(`${locale}/`, '')}/`}
                         title={post.data.title}
                         description={post.data.description}
                         pubDate={post.data.pubDate}
