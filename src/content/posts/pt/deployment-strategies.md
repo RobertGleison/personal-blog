@@ -4,7 +4,7 @@ pubDate: 2026-01-18
 description: 'Um review sobre estratégias de deployment após presenciar um SaaS outage de 1 dia que implementou um Big Bang deployment.'
 author: 'Robert Gleison'
 image:
-  url: '/deployment_strategies/thumb.png'
+  url: '/deployment-strategies/thumb.png'
   alt: 'An abstract image of a cube in the center surrounded by other cubes linked.'
 tags: ["Infrastructure", "Software Engineering"]
 ---
@@ -55,7 +55,7 @@ Em sistemas modernos, quando um desenvolvedor faz mudanças no código fonte, o 
 **CD (Continuous Delivery/Deployment)**: Etapa de deploy. Faz a compilação, build da aplicação, criação de imagens Docker e deploy para os ambientes após a etapa de CI ser concluída com sucesso. Quando o CD termina, o código fonte já se encontra em produção e disponível para os usuários.
 
 **Ferramentas comuns para implementação de CI/CD:** Jenkins, GitHub Actions, GitLab CI.
-![CI_CD](/deployment_strategies/ci_cd.png)
+![CI_CD](/deployment-strategies/ci_cd.png)
 
 ## Ambientes
 
@@ -90,7 +90,7 @@ Aqui usarei uma analogia utilizada pelo Matheus Fidelis pois a acho bem didátic
 Um Big Bang Deployment ou Recreate Deployment é uma estratégia que consiste em recriar todo o sistema de forma abrupta e simultânea, sem testes intermediários ou feedback de clientes. Simplesmente trocar a versão antiga pela nova sem nenhuma transição gradual.
 Isso pode ser perigoso pois, caso a nova versão tenha algum erro, todos os clientes vão ser afetados.
 
-![Blue_Green](/deployment_strategies/big-bang.drawio.png)
+![Blue_Green](/deployment-strategies/big-bang.drawio.png)
 
 `No exemplo da padaria seria como se um padeiro trocasse a receita dos pães de um dia para o outro. Não foi feito nenhum teste de sabor ou análise de feedback. No dia seguinte, ao comprar os pães, os clientes podem não gostar da nova receita e será preciso trocar toda a produção novamente`
 
@@ -100,7 +100,7 @@ Embora seja a maneira mais insegura de se fazer um deploy, em projetos simples o
 O Blue/Green Deployment é uma estratégia que prioritiza a disponibilidade durante o rollout de novas versões e um rápido rollback se necessário.
 No Blue/Green se mantém dois ambientes idênticos: **Blue** (versão atual e estável) e **Green** (nova versão), entenda ambiente como infraestrutura necessária para se manter um sistema em pé. Essa abordagem permite que testes sejam executados nas versões **Green** antes do deploy até que se tornem estáveis. Se algo der errado no processo, a versão **Blue** ainda está ativa e o cliente não irá notar diferença. Quando a versão **Green** se torna estável o suficiente, o tráfego de produção passa a versão Blue para a Green instantaneamente após mudanças de DNS. A versão **Blue(estável)** ainda é mantida durante um tempo para caso erros aconteçam (Neste caso basta alterar o DNS para a versão estável novamente). Se tudo der certo, as versões **Blue** são deletadas e As **Green** se tornam as estáveis.
 
-![Blue_Green](/deployment_strategies/blu-green.drawio.png)
+![Blue_Green](/deployment-strategies/blu-green.drawio.png)
 
 `No exemplo da padaria seria como se o padeiro preparasse 2 fornadas de pães, uma com a receita antiga e uma com a receita nova. A fornada com a receita antiga é disponibilizada para os clientes enquanto que a com a receita nova é testada pelos funcionários para saber se o gosto é bom, se os ingredientes estão corretos, se o método de produção é igual. Se a fornada com a nova receita for aceita, ela é disponibilizada para que os clientes comprem, mas, por segurança, a fornada com a receita antiga se encontra na cozinha para caso os clientes não gostem, a troca ser efetuada rapidamente`
 
@@ -130,7 +130,7 @@ Ou ainda um outro exemplo como:
 - Liberar a nova feature para todos os usuários
 ```
 
-![Canary](/deployment_strategies/canary.drawio.png)
+![Canary](/deployment-strategies/canary.drawio.png)
 
 <br>
 
@@ -156,7 +156,7 @@ Um exemplo seria: Supondo que nossa aplicação precise sempre de ter 8 replicas
 - Temos 8 replicas de uma aplicação na v2
 Para que evitar 1 durante a atualização de duas replicas a aplicação esteja disponível, se criaria 2 replicas extras para sempre garantir que no mínimo tenhamos 8 réplicas
 ```
-![Rolling_Updates](/deployment_strategies/rolling-update.drawio.png)
+![Rolling_Updates](/deployment-strategies/rolling-update.drawio.png)
 
 ## Feature Flags (Feature Toggles)
 
@@ -168,7 +168,7 @@ Ou seja, feature flags permitem o rollout de novas funcionalidades de forma cont
 
 Feature flags são muito amplas e podem ser usadas para testar funcionalidades segmentadas por tipos de clientes, categorias, serviços e etc.
 
-![Feature_Flags](/deployment_strategies/feature-flags.drawio.png)
+![Feature_Flags](/deployment-strategies/feature-flags.drawio.png)
 
 **Como funciona uma feature flag?**
 

@@ -41,7 +41,7 @@ html {
   background-color: var(--bg-primary);
   font-family: 'Merriweather', serif;
   color: var(--text-secondary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+
   overflow-x: hidden;
   height: 100%;
 }
@@ -78,7 +78,7 @@ main {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
   color: var(--text-primary);
-  transition: color 0.3s ease;
+
 }
 
 /* Articles Grid */

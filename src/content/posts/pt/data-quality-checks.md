@@ -4,7 +4,7 @@ pubDate: 2026-01-11
 description: 'Este post é um overview do que eu penso sobre qualidade de dados e como implementar no dia a dia.'
 author: 'Robert Gleison'
 image:
-  url: '/implementing_data_quality_checks_in_data_pipelines/thumb.png'
+  url: '/data-quality-checks/thumb.png'
   alt: 'An abstract image of a cube in the center surrounded by other cubes linked.'
 tags: ["Data Quality", "Data Engineering"]
 ---
@@ -46,7 +46,7 @@ Portanto, esse artigo se foca nos conceitos de fundação, mas para que não fiq
 
 Como pode-se ver abaixo, estou criando a tabela `customer_orders` utilizando um arquivo SQL a partir da tabela `jaffle_shop` e a documentação dessa tabela juntamente com os testes se encontram num arquivo .yml.
 
-![DBT Example](/implementing_data_quality_checks_in_data_pipelines/dbt_example.png)
+![DBT Example](/data-quality-checks/dbt_example.png)
 
 <br>
 
@@ -68,7 +68,7 @@ Portanto, cabe à quem desenvolver uma pipeline quais testes fazer.
 
 ## Tipos de testes
 Pessoalmente, eu gosto de separar os testes em 4 níveis: testes comparativos (comparative), testes de tabela (table level), testes de linha (row level) e testes de coluna (column level).
-![Tests Hierachy](/implementing_data_quality_checks_in_data_pipelines/tests_hierarchy.png)
+![Tests Hierachy](/data-quality-checks/tests_hierarchy.png)
 
 <br>
 
@@ -121,7 +121,7 @@ DBT example:
 
 - **Teste de integração (Referential Integrity):** Garante que relacionamentos entre tabelas sejam válidos, verificando se foreign keys referenciam registros existentes nas tabelas pai. Este teste é fundamental para manter a integridade referencial do banco de dados. Por exemplo, em uma tabela `orders` com coluna `product_id`, cada ID deve corresponder a um produto existente na tabela `products`. Se encontrarmos um `product_id` órfão (sem correspondente), isso indica dados corrompidos, possivelmente uma compra de produto deletado ou não cadastrado, erro em cascata de deleções, ou falha na sincronização entre sistemas.
 
-![FK](/implementing_data_quality_checks_in_data_pipelines/Fk.png)
+![FK](/data-quality-checks/Fk.png)
 
 ```yml
 DBT example:
@@ -209,7 +209,7 @@ tests:
 
 **O problema que detecta:** Se `paciente_observacoes` de repente mostra dados de apenas 800 pacientes, você sabe que 200 pacientes "desapareceram" em algum ponto do ETL - talvez um JOIN incorreto, filtro mal aplicado, ou transformação que não considerou edge cases. Este teste força documentação e validação da lógica de negócio. Se era esperado perder esses 200 pacientes (ex: pacientes sem observações registradas), essa regra deve estar documentada e o threshold do teste ajustado adequadamente.
 
-![Comparative Tests](/implementing_data_quality_checks_in_data_pipelines/comparative_tests.png)
+![Comparative Tests](/data-quality-checks/comparative_tests.png)
 
 
 Um exemplo de comparative test para rastrear número de pacientes é:
@@ -293,13 +293,13 @@ O TDD é uma metodologia de programação onde primeiro escrevemos o teste, já 
 
 Um exemplo de teste unitário em dbt é:
 
-![Unit Tests](/implementing_data_quality_checks_in_data_pipelines/unit_test.png)
+![Unit Tests](/data-quality-checks/unit_test.png)
 
 No exemplo acima, estamos criando a tabela dim_customers. Criamos mocks das linhas de input de determinada tabela necessária na lógica SQL (no caso a tabela `events`) e o output esperado da tabela dim_customers.
 
 ## WAP - Write, Audit and Publish
 
-![WAP](/implementing_data_quality_checks_in_data_pipelines/WAP.png)
+![WAP](/data-quality-checks/WAP.png)
 
 ### O que é Write, Audit and Publish?
 

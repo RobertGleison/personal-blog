@@ -4,7 +4,7 @@ pubDate: 2026-01-25
 description: 'Importantes configurações para melhorar sua experiência com postgreSQL.'
 author: 'Robert Gleison'
 image:
-  url: '/postgres_configurations/thumb_postgres.png'
+  url: '/postgres-configurations/thumb_postgres.png'
   alt: 'Visualização das configurações do PostgreSQL.'
 tags: ["Infrastructure", "Software Engineering"]
 ---
@@ -240,7 +240,7 @@ max_parallel_workers = 12
 
 WAL -> Técnica usada pelo postgres e outros BDs para garantir durabilidade e consistência. Guarda todas mudanças feitas no banco numa lista append only antes da mudança ser aplicada. Assimse garante que uma transação feita tenha seu log gravado. Isto é importante para replicação de mudanças para replicas de banco de dados de leitura (que precisam saber o que acontecer na replica de escrita). Também é importante para disaster recovery.
 
-![WAL](/postgres_configurations/wal.png)
+![WAL](/postgres-configurations/wal.png)
 
 ### wal_level
 
