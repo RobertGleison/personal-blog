@@ -216,13 +216,15 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
   .nav-link {
     padding: 1rem;
     border-radius: 8px;
-    background: var(--bg-secondary);
+    /* background: var(--bg-secondary); */
     text-decoration: none;
     transition: all 0.2s;
   }
 
   .nav-link:hover {
-    background: var(--bg-tertiary);
+    transform: translateY(-4px);
+    /* background: var(--bg-secondary); */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .nav-link.next {
