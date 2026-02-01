@@ -19,7 +19,12 @@
   },
   "categories": {
     "title": "CATEGORIAS",
-    "all": "Todos"
+    "all": "Todos",
+    "softwareEngineering": "Engenharia de Software",
+    "dataEngineering": "Engenharia de Dados",
+    "infrastructure": "Infraestrutura",
+    "cloud": "Cloud",
+    "tips": "Dicas"
   },
   "pagination": {
     "previous": "Anterior",

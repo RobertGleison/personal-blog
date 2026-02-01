@@ -4,9 +4,9 @@ pubDate: 2026-01-11
 description: 'Este post é um overview do que eu penso sobre qualidade de dados e como implementar no dia a dia.'
 author: 'Robert Gleison'
 image:
-  url: '/data-quality-checks/thumb.png'
-  alt: 'An abstract image of a cube in the center surrounded by other cubes linked.'
-tags: ["Data Quality", "Data Engineering"]
+  url: '/data-quality-checks/thumb_data_quality.png'
+  alt: 'A database symbol in the middle of a cycle with data quality steps.'
+tags: ["Data Engineering"]
 ---
 
 ## Índice

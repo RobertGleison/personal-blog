@@ -4,9 +4,9 @@ pubDate: 2026-01-18
 description: 'Um review sobre estratégias de deployment após presenciar um SaaS outage de 1 dia que implementou um Big Bang deployment.'
 author: 'Robert Gleison'
 image:
-  url: '/deployment-strategies/thumb.png'
+  url: '/deployment-strategies/thumb_deployment.png'
   alt: 'An abstract image of a cube in the center surrounded by other cubes linked.'
-tags: ["Infrastructure", "Software Engineering"]
+tags: ["DevOps", "Software Engineering"]
 ---
 
 

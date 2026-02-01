@@ -5,8 +5,8 @@ description: 'Importantes configurações para melhorar sua experiência com pos
 author: 'Robert Gleison'
 image:
   url: '/postgres-configurations/thumb_postgres.png'
-  alt: 'Visualização das configurações do PostgreSQL.'
-tags: ["Infrastructure", "Software Engineering"]
+  alt: 'A elephant in the middle of some gears'
+tags: ["DevOps", "Software Engineering"]
 ---
 
 ## Índice
