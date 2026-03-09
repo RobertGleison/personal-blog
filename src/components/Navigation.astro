@@ -3,6 +3,7 @@ import ThemeToggle from './ThemeToggle.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import { type Locale, defaultLocale } from '../i18n/config';
 import { translate, getLocalePrefix } from '../i18n/utils';
+import logo from '../assets/alternative_logo.png';
 
 interface Props {
   locale?: Locale;
@@ -19,7 +20,7 @@ const localePrefix = getLocalePrefix(locale);
       <div class="nav-container">
           <div class="nav-brand">
             <a href={`${localePrefix}/`}>
-              <span class="brand-mark">R</span>
+              <img src={logo.src} alt="Robert Gleison" class="brand-logo" />
               <span class="brand-text">robertech<span class="brand-dot">.</span>dev</span>
             </a>
           </div>
@@ -135,18 +136,10 @@ const localePrefix = getLocalePrefix(locale);
     opacity: 0.8;
   }
 
-  .brand-mark {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .brand-logo {
     width: 32px;
     height: 32px;
-    background: var(--accent-color);
-    color: white;
-    font-family: var(--font-display, 'Playfair Display', serif);
-    font-weight: 700;
-    font-size: 1.1rem;
-    border-radius: 6px;
+    object-fit: contain;
   }
 
   .brand-text {

@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Hacked';
+  src: url('/fonts/hacked-font/Hacked-KerX.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -23,7 +31,7 @@
   --shadow-md: rgba(26, 26, 26, 0.1);
 
   /* Typography */
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'Source Sans 3', 'Segoe UI', sans-serif;
   --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 

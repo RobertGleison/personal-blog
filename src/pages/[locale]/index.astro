@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { translate } from '../../i18n/utils';
 import { locales, type Locale } from '../../i18n/config';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/alternative_logo.png';
 
 export function getStaticPaths() {
   return locales.map((l) => ({ params: { locale: l } }));
@@ -38,8 +38,15 @@ const recentPosts = sortedPosts.slice(0, 3);
               </div>
           </div>
           <div class="hero-decoration" aria-hidden="true">
-            <div class="deco-line"></div>
-            <div class="deco-dot"></div>
+            <svg class="git-graph" width="24" height="196" viewBox="0 0 24 196" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- main branch line -->
+              <line x1="12" y1="20" x2="12" y2="176" class="line-main" stroke-width="2"/>
+              <!-- commits -->
+              <circle cx="12" cy="20" r="5" class="dot-main"/>
+              <circle cx="12" cy="72" r="5" class="dot-main"/>
+              <circle cx="12" cy="124" r="5" class="dot-main"/>
+              <circle cx="12" cy="176" r="4" class="dot-main dim"/>
+            </svg>
           </div>
       </div>
     </div>
@@ -99,10 +106,7 @@ const recentPosts = sortedPosts.slice(0, 3);
   .hero-avatar {
     width: 72px;
     height: 72px;
-    border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--bg-primary);
-    box-shadow: 0 2px 12px var(--shadow-sm);
     flex-shrink: 0;
   }
 
@@ -121,9 +125,9 @@ const recentPosts = sortedPosts.slice(0, 3);
   }
 
   .hero-title {
-    font-family: var(--font-display, 'Playfair Display', serif);
+    font-family: 'Hacked', var(--font-display, 'Source Sans 3', sans-serif);
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: normal;
     color: var(--text-primary);
     line-height: 1.15;
     margin: 0;
@@ -153,23 +157,20 @@ const recentPosts = sortedPosts.slice(0, 3);
     right: 2rem;
     top: 50%;
     transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
   }
 
-  .deco-line {
-    width: 1px;
-    height: 80px;
-    background: linear-gradient(to bottom, transparent, var(--accent-color), transparent);
+  .git-graph .line-main {
+    stroke: var(--accent-color);
+    opacity: 0.35;
   }
 
-  .deco-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent-color);
+  .git-graph .dot-main {
+    fill: var(--accent-color);
+    opacity: 0.7;
+  }
+
+  .git-graph .dim {
+    opacity: 0.2;
   }
 
   @media (max-width: 768px) {
@@ -212,9 +213,9 @@ const recentPosts = sortedPosts.slice(0, 3);
   }
 
   .section-header h2 {
-    font-family: var(--font-display, 'Playfair Display', serif);
+    font-family: var(--font-display, 'Source Sans 3', sans-serif);
     font-size: 1.75rem;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--text-primary);
     white-space: nowrap;
     margin: 0;
