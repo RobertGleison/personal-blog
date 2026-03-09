@@ -1,9 +1,9 @@
 import type { Locale } from './config';
 import { defaultLocale, dateLocales } from './config';
 import en from './translations/en.json';
-import pt from './translations/pt.json';
+import ptBr from './translations/pt-br.json';
 
-const translations: Record<Locale, typeof en> = { en, pt };
+const translations: Record<Locale, typeof en> = { en, 'pt-br': ptBr };
 
 type TranslationKey = string;
 
@@ -52,16 +52,16 @@ export function formatDate(date: Date, locale: Locale): string {
 }
 
 export function getLocalizedPath(path: string, locale: Locale): string {
-  const cleanPath = path.replace(/^\/(en|pt)/, '');
+  const cleanPath = path.replace(/^\/(en|pt-br)/, '');
   return `/${locale}${cleanPath || '/'}`;
 }
 
 export function getAlternateLocale(currentLocale: Locale): Locale {
-  return currentLocale === 'en' ? 'pt' : 'en';
+  return currentLocale === 'en' ? 'pt-br' : 'en';
 }
 
 export function getLocaleFromPath(path: string): Locale {
-  const match = path.match(/^\/(en|pt)(?:\/|$)/);
+  const match = path.match(/^\/(en|pt-br)(?:\/|$)/);
   return (match?.[1] as Locale) || defaultLocale;
 }
 

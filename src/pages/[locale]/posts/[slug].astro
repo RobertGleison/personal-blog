@@ -30,12 +30,12 @@ const currentIndex = sortedPosts.findIndex((p) => p.slug === post.slug);
 const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
-const authorLabel = locale === 'pt' ? 'por' : 'by';
+const authorLabel = locale === 'pt-br' ? 'por' : 'by';
 
 // Estimate reading time
 const wordCount = post.body?.split(/\s+/).length || 0;
 const readingTime = Math.max(1, Math.ceil(wordCount / 200));
-const readingLabel = locale === 'pt' ? 'min de leitura' : 'min read';
+const readingLabel = locale === 'pt-br' ? 'min de leitura' : 'min read';
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} locale={locale}>

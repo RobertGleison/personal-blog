@@ -8,7 +8,7 @@ const rssConfig: Record<string, { description: string; language: string }> = {
     description: 'Personal blog about data engineering, backend programming, system design, infrastructure, cloud, and data platforms.',
     language: 'en-us',
   },
-  pt: {
+  'pt-br': {
     description: 'Blog pessoal sobre engenharia de dados, programacao backend, design de sistemas, infraestrutura, cloud e plataformas de dados.',
     language: 'pt-br',
   },

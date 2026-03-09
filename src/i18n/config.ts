@@ -1,19 +1,19 @@
-export const locales = ['en', 'pt'] as const;
+export const locales = ['en', 'pt-br'] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'en';
 
 export const localeNames: Record<Locale, string> = {
   en: 'en',
-  pt: 'pt-BR',
+  'pt-br': 'pt-BR',
 };
 
 export const localeFlags: Record<Locale, string> = {
   en: '🇺🇸',
-  pt: '🇧🇷',
+  'pt-br': '🇧🇷',
 };
 
 export const dateLocales: Record<Locale, string> = {
   en: 'en-US',
-  pt: 'pt-BR',
+  'pt-br': 'pt-BR',
 };
