@@ -4,7 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ArticleCard from '../../../components/ArticleCard.astro';
 import SearchBar from '../../../components/SearchBar.astro';
 import Pagination from '../../../components/Pagination.astro';
-import { translate } from '../../../i18n/utils';
+import { translate, translateTag } from '../../../i18n/utils';
 import { locales, type Locale } from '../../../i18n/config';
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
@@ -71,7 +71,7 @@ const { categories, totalPosts } = Astro.props;
               {categories.map((category: { name: string; count: number }) => (
                 <li>
                   <button type="button" class="category-link" data-tag={category.name.toLowerCase()}>
-                    <span class="category-name">{category.name}</span>
+                    <span class="category-name">{translateTag(category.name, locale)}</span>
                     <span class="category-count">{category.count}</span>
                   </button>
                 </li>

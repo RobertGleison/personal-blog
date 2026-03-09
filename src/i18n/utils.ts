@@ -28,6 +28,21 @@ export function translate(locale: Locale, key: TranslationKey): string {
   return value;
 }
 
+const tagKeyMap: Record<string, string> = {
+  'tips': 'categories.tips',
+  'devops': 'categories.devops',
+  'software engineering': 'categories.softwareEngineering',
+  'data engineering': 'categories.dataEngineering',
+  'infrastructure': 'categories.infrastructure',
+  'cloud': 'categories.cloud',
+};
+
+export function translateTag(tag: string, locale: Locale): string {
+  const key = tagKeyMap[tag.toLowerCase()];
+  if (!key) return tag;
+  return translate(locale, key);
+}
+
 export function formatDate(date: Date, locale: Locale): string {
   return date.toLocaleDateString(dateLocales[locale], {
     day: 'numeric',

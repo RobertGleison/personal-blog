@@ -24,7 +24,8 @@
     "dataEngineering": "Engenharia de Dados",
     "infrastructure": "Infraestrutura",
     "cloud": "Cloud",
-    "tips": "Dicas"
+    "tips": "Dicas",
+    "devops": "DevOps"
   },
   "pagination": {
     "previous": "Anterior",
@@ -34,7 +35,8 @@
     "back": "Voltar",
     "previous": "Anterior",
     "next": "Próximo",
-    "scrollToTop": "Voltar ao topo"
+    "scrollToTop": "Voltar ao topo",
+    "read": "Ler"
   },
   "footer": {
     "copyright": "Todos os direitos reservados."

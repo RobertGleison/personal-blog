@@ -1,6 +1,6 @@
 ---
 import { type Locale, defaultLocale } from '../i18n/config';
-import { formatDate } from '../i18n/utils';
+import { formatDate, translate, translateTag } from '../i18n/utils';
 
 interface Props {
     url: string;
@@ -30,7 +30,7 @@ const { url, title, description, pubDate, author, image, tags, locale = defaultL
             <div class="article-content-inner">
               <div class="article-meta-top">
                 {tags && tags.length > 0 && (
-                    <span class="article-category">{tags[0]}</span>
+                    <span class="article-category">{translateTag(tags[0], locale)}</span>
                 )}
                 <time datetime={pubDate.toISOString()}>{formatDate(pubDate, locale)}</time>
               </div>
@@ -45,7 +45,7 @@ const { url, title, description, pubDate, author, image, tags, locale = defaultL
                         ))}
                     </div>
                 )}
-                <span class="read-more">Read &rarr;</span>
+                <span class="read-more">{translate(locale, 'article.read')} &rarr;</span>
             </div>
         </div>
     </a>
