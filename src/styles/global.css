@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Hacked';
+  src: url('/fonts/hacked-font/Hacked-KerX.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,66 +14,106 @@
 }
 
 :root {
-  /* Light theme (default) - Professional Black, White & Blue */
-  --bg-primary: #ffffff;
-  --bg-secondary: #fafafa;
-  --bg-tertiary: #fafafa;
-  --bg-quaternary: #e4e4e7;
-  --text-primary: #09090b;
-  --text-secondary: #18181b;
-  --text-tertiary: #3f3f46;
-  --text-muted: #000000;
-  --border-color: #d4d4d8;
-  --accent-color: #000000;
-  --accent-contrast: #ffffff;
-  --shadow-sm: rgba(0, 0, 0, 0.08);
+  /* Editorial Ink - Light Theme */
+  --bg-primary: #FDFBF7;
+  --bg-secondary: #F5F2EB;
+  --bg-tertiary: #efefef;
+  --bg-quaternary: #E0DBD1;
+  --text-primary: #1A1A1A;
+  --text-secondary: #2D2D2D;
+  --text-tertiary: #5C5C5C;
+  --text-muted: #383838;
+  --border-color: #DDD8CE;
+  --accent-color: #C45D3E;
+  --accent-light: #E8755A;
+  --accent-contrast: #FDFBF7;
+  --shadow-sm: rgba(26, 26, 26, 0.06);
+  --shadow-md: rgba(26, 26, 26, 0.1);
+
+  /* Typography */
+  --font-display: 'Source Sans 3', 'Segoe UI', sans-serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Spacing */
+  --container-max: 1200px;
+  --container-narrow: 1100px;
+  --nav-height: 64px;
 }
 
 [data-theme="dark"] {
-  /* Dark theme - Blue & Black */
-  --bg-primary: #010206; /*030712*/
-  --bg-secondary: #0f172a;
-  --bg-tertiary: #1e293b;
-  --bg-quaternary: #334155;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff;
-  --text-tertiary: #cad3db;
-  --text-muted: #ffffff;
-  --border-color: #334155;
-  --accent-color: #ffffff;
-  --accent-contrast: #030712;
-  --shadow-sm: rgba(59, 130, 246, 0.2);
+  /* Editorial Ink - Dark Theme */
+  --bg-primary: #141210;
+  --bg-secondary: #1C1A16;
+  --bg-tertiary: #262420;
+  --bg-quaternary: #36342E;
+  --text-primary: #F0EDE6;
+  --text-secondary: #D8D4CC;
+  --text-tertiary: #b9b8b7;
+  --text-muted: #bdbdbd;
+  --border-color: #2E2B26;
+  --accent-color: #E8755A;
+  --accent-light: #F0917A;
+  --accent-contrast: #141210;
+  --shadow-sm: rgba(0, 0, 0, 0.2);
+  --shadow-md: rgba(0, 0, 0, 0.3);
 }
 
 html {
   background-color: var(--bg-primary);
-  font-family: 'Merriweather', serif;
+  font-family: var(--font-body);
   color: var(--text-secondary);
-
   overflow-x: hidden;
   height: 100%;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
   padding: 0;
-  padding-top: 65px;
+  padding-top: var(--nav-height);
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.7;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Main Content */
 main {
   flex: 1;
 }
 
+/* Selection */
+::selection {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-quaternary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Home grid */
 .home-container {
-  max-width: 1200px;
+  max-width: var(--container-max);
   margin: 0 auto;
   padding: 3rem 2rem;
 }
@@ -75,13 +123,12 @@ main {
 }
 
 .home-header h1 {
+  font-family: var(--font-display);
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
   color: var(--text-primary);
-
 }
 
-/* Articles Grid */
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));

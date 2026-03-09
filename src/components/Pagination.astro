@@ -8,15 +8,8 @@ interface Props {
 const { currentPage, totalPages, baseUrl = '/' } = Astro.props;
 
 const getPageUrl = (page: number) => {
-  // Remove trailing slash from baseUrl if present
   const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-
-  if (page === 1) {
-    // For page 1, return baseUrl as-is (with trailing slash if it had one)
-    return baseUrl;
-  }
-
-  // For other pages, append the page number
+  if (page === 1) return baseUrl;
   return `${cleanBaseUrl}/${page}/`;
 };
 
@@ -31,8 +24,10 @@ const showPages = pages.filter(page => {
 {totalPages > 1 && (
   <nav class="pagination" aria-label="Pagination">
     {currentPage > 1 && (
-      <a href={getPageUrl(currentPage - 1)} class="pagination-link" aria-label="Previous page">
-        &laquo; Prev
+      <a href={getPageUrl(currentPage - 1)} class="pagination-link pagination-arrow" aria-label="Previous page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
       </a>
     )}
 
@@ -42,7 +37,7 @@ const showPages = pages.filter(page => {
 
       return (
         <>
-          {showEllipsis && <span class="pagination-ellipsis">...</span>}
+          {showEllipsis && <span class="pagination-ellipsis">&middot;&middot;&middot;</span>}
           <a
             href={getPageUrl(page)}
             class={`pagination-link ${page === currentPage ? 'active' : ''}`}
@@ -56,48 +51,60 @@ const showPages = pages.filter(page => {
     })}
 
     {currentPage < totalPages && (
-      <a href={getPageUrl(currentPage + 1)} class="pagination-link" aria-label="Next page">
-        Next &raquo;
+      <a href={getPageUrl(currentPage + 1)} class="pagination-link pagination-arrow" aria-label="Next page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
       </a>
     )}
   </nav>
 )}
 
 <style>
-  /* Pagination */
   .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.35rem;
     margin-top: 3rem;
   }
 
   .pagination-link {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.85rem;
     border: 1px solid var(--border-color);
     border-radius: 6px;
     text-decoration: none;
-    color: var(--text-muted);
-    background: var(--bg-secondary);
-    transition: all 0.2s, background-color 0.3s ease;
+    color: var(--text-tertiary);
+    background: var(--bg-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    min-height: 38px;
   }
 
   .pagination-link:hover {
-    background: var(--bg-quaternary);
     border-color: var(--accent-color);
     color: var(--accent-color);
   }
 
   .pagination-link.active {
     background: var(--accent-color);
-    color: var(--accent-contrast);
+    color: white;
     border-color: var(--accent-color);
   }
 
-  .pagination-ellipsis {
+  .pagination-arrow {
     padding: 0.5rem;
+  }
+
+  .pagination-ellipsis {
+    padding: 0.5rem 0.25rem;
     color: var(--text-muted);
-    transition: color 0.3s ease;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
   }
 </style>

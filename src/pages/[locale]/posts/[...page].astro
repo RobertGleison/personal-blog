@@ -58,8 +58,6 @@ const { categories, totalPosts } = Astro.props;
             <p class="posts-subtitle">{translate(locale, 'posts.subtitle')}</p>
         </div>
 
-      <SearchBar locale={locale} />
-
       <div class="posts-layout">
           <aside class="categories-sidebar">
             <h3>{translate(locale, 'categories.title')}</h3>
@@ -82,6 +80,8 @@ const { categories, totalPosts } = Astro.props;
           </aside>
 
           <div class="posts-main-content">
+            <SearchBar locale={locale} />
+
             <div class="articles-grid">
                 {page.data.map((post: any) => (
                     <ArticleCard
@@ -109,46 +109,48 @@ const { categories, totalPosts } = Astro.props;
 
 <style>
   .posts-page-container {
-    max-width: 1400px;
+    max-width: var(--container-max, 1200px);
     margin: 0 auto;
-    padding: 2rem;
+    padding: 3rem 2rem;
   }
 
   .posts-page-header {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
   }
 
   .posts-page-header h1 {
+    font-family: var(--font-display, 'Source Sans 3', sans-serif);
     font-size: 2.5rem;
-    font-weight: bold;
+    font-weight: 500;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
   }
 
   .posts-subtitle {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
+    font-size: 1.05rem;
+    color: var(--text-muted);
   }
 
   .posts-layout {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 240px 1fr;
     gap: 3rem;
     align-items: start;
   }
 
   .categories-sidebar {
     position: sticky;
-    top: 5rem;
+    top: calc(var(--nav-height, 64px) + 2rem);
   }
 
   .categories-sidebar h3 {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
     color: var(--text-muted);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     text-transform: uppercase;
   }
 
@@ -159,7 +161,7 @@ const { categories, totalPosts } = Astro.props;
   }
 
   .category-list li {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.15rem;
   }
 
   .category-link {
@@ -170,11 +172,12 @@ const { categories, totalPosts } = Astro.props;
     padding: 0.5rem 0.75rem;
     border-radius: 6px;
     text-decoration: none;
-    color: var(--text-muted);
+    color: var(--text-tertiary);
     transition: all 0.2s;
     background: none;
     border: none;
     font: inherit;
+    font-size: 0.9rem;
     cursor: pointer;
   }
 
@@ -186,13 +189,22 @@ const { categories, totalPosts } = Astro.props;
   .category-link.active {
     background: var(--bg-secondary);
     color: var(--accent-color);
+    font-weight: 600;
+  }
+
+  .category-link.active .category-count {
+    background: var(--accent-color);
+    color: white;
   }
 
   .category-count {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
     background: var(--bg-tertiary);
-    padding: 0.125rem 0.5rem;
+    padding: 0.15rem 0.5rem;
     border-radius: 10px;
+    color: var(--text-muted);
+    transition: all 0.2s;
   }
 
   .posts-main-content {
@@ -202,7 +214,7 @@ const { categories, totalPosts } = Astro.props;
   .articles-grid {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
     margin-bottom: 3rem;
   }
 
@@ -215,11 +227,33 @@ const { categories, totalPosts } = Astro.props;
     .categories-sidebar {
       position: static;
     }
+
+    .category-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .category-list li {
+      margin-bottom: 0;
+    }
+
+    .category-link {
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      gap: 0.5rem;
+    }
+
+    .category-link.active {
+      border-color: var(--accent-color);
+    }
   }
 
   @media (max-width: 768px) {
     .posts-page-container {
-      padding: 1rem;
+      padding: 2rem 1.5rem;
     }
 
     .posts-page-header h1 {
@@ -227,7 +261,7 @@ const { categories, totalPosts } = Astro.props;
     }
 
     .posts-subtitle {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
   }
 </style>

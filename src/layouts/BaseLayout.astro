@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
 import { type Locale, defaultLocale, locales } from '../i18n/config';
 import { getLocalizedPath } from '../i18n/utils';
 import '../styles/global.css';
@@ -30,7 +31,7 @@ const currentPath = Astro.url.pathname;
         <link rel="alternate" hreflang="x-default" href={`/en${currentPath.replace(/^\/(en|pt)/, '') || '/'}`} />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
         <ClientRouter fallback="none" />
         <style is:global>
           ::view-transition-old(root),
@@ -64,5 +65,6 @@ const currentPath = Astro.url.pathname;
           <main>
               <slot />
           </main>
+        <Footer locale={locale} />
     </body>
 </html>

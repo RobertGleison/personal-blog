@@ -1,9 +1,9 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import logo from '../assets/logo.png';
 import { type Locale, defaultLocale } from '../i18n/config';
 import { translate, getLocalePrefix } from '../i18n/utils';
+import logo from '../assets/alternative_logo.png';
 
 interface Props {
   locale?: Locale;
@@ -15,52 +15,52 @@ const localePrefix = getLocalePrefix(locale);
 ---
 
 <nav class="navigation">
-    <div class="nav-container">
-        <div class="nav-brand">
-          <a href={`${localePrefix}/`}>
-            <img src={logo.src} alt="robertech.dev logo" class="logo" />
-            <span>robertech.dev</span>
-          </a>
-        </div>
+    <div class="nav-accent-bar"></div>
+    <div class="nav-inner">
+      <div class="nav-container">
+          <div class="nav-brand">
+            <a href={`${localePrefix}/`}>
+              <img src={logo.src} alt="Robert Gleison" class="brand-logo" />
+              <span class="brand-text">robertech<span class="brand-dot">.</span>dev</span>
+            </a>
+          </div>
 
-        <button class="mobile-menu-toggle" aria-label="Toggle menu">
-            <svg class="hamburger" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-            <svg class="close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-        </button>
+          <button class="mobile-menu-toggle" aria-label="Toggle menu">
+              <svg class="hamburger" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+              <svg class="close" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+          </button>
 
-      <div class="nav-links">
-          <a href={`${localePrefix}/`}>{translate(locale, 'nav.home')}</a>
-          <a href={`${localePrefix}/posts/`}>{translate(locale, 'nav.posts')}</a>
-          <div class="social-links">
-              <a href="https://github.com/RobertGleison" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                  </svg>
-              </a>
-              <a href="https://www.linkedin.com/in/robertgleison/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                      <rect x="2" y="9" width="4" height="12"></rect>
-                      <circle cx="4" cy="4" r="2"></circle>
-                  </svg>
-              </a>
-              <a href={`${localePrefix}/rss.xml`} target="_blank" rel="noopener noreferrer" aria-label="RSS Feed">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M4 11a9 9 0 0 1 9 9"></path>
-                      <path d="M4 4a16 16 0 0 1 16 16"></path>
-                      <circle cx="5" cy="19" r="1"></circle>
-                  </svg>
-              </a>
+        <div class="nav-links">
+            <a href={`${localePrefix}/`} class="nav-link">{translate(locale, 'nav.home')}</a>
+            <a href={`${localePrefix}/posts/`} class="nav-link">{translate(locale, 'nav.posts')}</a>
+
+            <div class="nav-divider"></div>
+
+            <div class="social-links">
+                <a href="https://github.com/RobertGleison" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                       <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/robertgleison/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+            </div>
+
+          <LanguageSwitcher locale={locale} currentPath={currentPath} />
+          <ThemeToggle />
         </div>
-        <LanguageSwitcher locale={locale} currentPath={currentPath} />
-        <ThemeToggle />
       </div>
     </div>
 </nav>
@@ -72,7 +72,6 @@ const localePrefix = getLocalePrefix(locale);
 
         if (!mobileMenuToggle || !navLinks) return;
 
-        // Remove any existing listeners by cloning and replacing
         const newToggle = mobileMenuToggle.cloneNode(true);
         mobileMenuToggle.parentNode?.replaceChild(newToggle, mobileMenuToggle);
 
@@ -81,7 +80,6 @@ const localePrefix = getLocalePrefix(locale);
             newToggle.classList.toggle('active');
         });
 
-        // Close menu when clicking a link
         const links = navLinks.querySelectorAll('a');
         links.forEach(link => {
             link.addEventListener('click', () => {
@@ -91,67 +89,111 @@ const localePrefix = getLocalePrefix(locale);
         });
     }
 
-    // Initialize on page load
     initializeMenu();
-
-    // Re-initialize after page transitions (for Astro view transitions)
     document.addEventListener('astro:page-load', initializeMenu);
 </script>
 
 <style>
-  /* Navigation */
   .navigation {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
     transition: background-color 0.3s ease, border-color 0.3s ease;
   }
 
+  .nav-accent-bar {
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+  }
+
+  .nav-inner {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(12px);
+  }
+
   .nav-container {
-    max-width: 1200px;
+    max-width: var(--container-max, 1200px);
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: calc(var(--nav-height, 64px) - 3px);
   }
 
   .nav-brand a {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--accent-color);
+    gap: 0.6rem;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: opacity 0.2s;
   }
 
-  .nav-brand .logo {
+  .nav-brand a:hover {
+    opacity: 0.8;
+  }
+
+  .brand-logo {
     width: 32px;
     height: 32px;
     object-fit: contain;
   }
 
+  .brand-text {
+    font-family: var(--font-body, 'Source Sans 3', sans-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .brand-dot {
+    color: var(--accent-color);
+  }
+
   .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
   }
 
-  .nav-links a {
-    color: var(--text-muted);
+  .nav-link {
+    color: var(--text-tertiary);
     text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
     transition: color 0.2s;
+    position: relative;
   }
 
-  .nav-links a:hover {
-    /* color: var(--accent-color); */
+  .nav-link:hover {
+    color: var(--text-primary);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+    border-radius: 1px;
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border-color);
   }
 
   .mobile-menu-toggle {
@@ -160,14 +202,14 @@ const localePrefix = getLocalePrefix(locale);
     border: none;
     cursor: pointer;
     padding: 0.5rem;
-    color: var(--text-muted);
+    color: var(--text-tertiary);
     transition: color 0.2s;
     position: relative;
     z-index: 1001;
   }
 
   .mobile-menu-toggle:hover {
-    color: var(--accent-color);
+    color: var(--text-primary);
   }
 
   .mobile-menu-toggle .close {
@@ -184,7 +226,7 @@ const localePrefix = getLocalePrefix(locale);
 
   .social-links {
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
     align-items: center;
   }
 
@@ -192,18 +234,14 @@ const localePrefix = getLocalePrefix(locale);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem;
+    padding: 0.4rem;
     border-radius: 6px;
-    transition: all 0.1s;
+    color: var(--text-muted);
+    transition: color 0.2s;
   }
 
   .social-links a:hover {
-    /* background: var(--bg-tertiary); */
-  }
-
-  .social-links svg {
-    width: 20px;
-    height: 20px;
+    color: var(--accent-color);
   }
 
   @media (max-width: 768px) {
@@ -220,31 +258,39 @@ const localePrefix = getLocalePrefix(locale);
       top: 0;
       right: -100%;
       height: 100vh;
-      width: 70%;
-      max-width: 300px;
-      /* background: var(--bg-secondary); */
+      width: 75%;
+      max-width: 320px;
+      background: var(--bg-primary);
       border-left: 1px solid var(--border-color);
       flex-direction: column;
       padding: 5rem 2rem 2rem;
-      gap: 1.5rem;
+      gap: 1.25rem;
       transition: right 0.3s ease;
       z-index: 1000;
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+      box-shadow: -8px 0 24px var(--shadow-md);
     }
 
     .nav-links.active {
       right: 0;
     }
 
-    .nav-links a {
-      font-size: 1.125rem;
+    .nav-link {
+      font-size: 1.1rem;
+    }
+
+    .nav-link::after {
+      display: none;
+    }
+
+    .nav-divider {
+      width: 100%;
+      height: 1px;
     }
 
     .social-links {
       flex-direction: row;
-      gap: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border-color);
+      gap: 1.25rem;
+      padding-top: 0.5rem;
       width: 100%;
       justify-content: center;
     }
