@@ -209,7 +209,7 @@ const readingLabel = locale === 'pt' ? 'min de leitura' : 'min read';
     justify-content: space-between;
     gap: 1rem;
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
 
   .post-meta-left {
@@ -260,15 +260,15 @@ const readingLabel = locale === 'pt' ? 'min de leitura' : 'min read';
 
   /* Post Content Typography */
   .post-content {
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     line-height: 1.85;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
   }
 
   .post-content :global(h2) {
     font-family: var(--font-display, 'Source Sans 3', sans-serif);
     font-size: 1.75rem;
-    font-weight: 500;
+    font-weight: 700;
     color: var(--text-primary);
     margin-top: 3rem;
     margin-bottom: 1rem;
@@ -278,7 +278,7 @@ const readingLabel = locale === 'pt' ? 'min de leitura' : 'min read';
   .post-content :global(h3) {
     font-family: var(--font-display, 'Source Sans 3', sans-serif);
     font-size: 1.35rem;
-    font-weight: 500;
+    font-weight: 700;
     color: var(--text-primary);
     margin-top: 2.5rem;
     margin-bottom: 0.75rem;
@@ -291,6 +291,11 @@ const readingLabel = locale === 'pt' ? 'min de leitura' : 'min read';
     color: var(--text-primary);
     margin-top: 2rem;
     margin-bottom: 0.5rem;
+  }
+
+  .post-content :global(strong) {
+    font-weight: 700;
+    color: var(--text-primary);
   }
 
   .post-content :global(p) {

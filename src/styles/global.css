@@ -17,12 +17,12 @@
   /* Editorial Ink - Light Theme */
   --bg-primary: #FDFBF7;
   --bg-secondary: #F5F2EB;
-  --bg-tertiary: #EDE9E0;
+  --bg-tertiary: #efefef;
   --bg-quaternary: #E0DBD1;
   --text-primary: #1A1A1A;
   --text-secondary: #2D2D2D;
   --text-tertiary: #5C5C5C;
-  --text-muted: #7A7A7A;
+  --text-muted: #383838;
   --border-color: #DDD8CE;
   --accent-color: #C45D3E;
   --accent-light: #E8755A;
@@ -49,8 +49,8 @@
   --bg-quaternary: #36342E;
   --text-primary: #F0EDE6;
   --text-secondary: #D8D4CC;
-  --text-tertiary: #A09B92;
-  --text-muted: #807B72;
+  --text-tertiary: #b9b8b7;
+  --text-muted: #bdbdbd;
   --border-color: #2E2B26;
   --accent-color: #E8755A;
   --accent-light: #F0917A;
