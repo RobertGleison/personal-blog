@@ -1,5 +1,5 @@
 # Personal Blog
-This is my personal blog where I keep my articles. You can visit it in [robertech.dev](https://robertech.dev/)
+This is my personal blog where I keep my articles. You can visit it at [robertech.dev](https://robertech.dev/)
 
 ## Commands
 
@@ -14,51 +14,48 @@ All commands are run from the root of the project:
 | `pnpm astro ...` | Run Astro CLI commands |
 
 Note: you need to have Node installed
+
 ## Creating Blog Posts
 
-Blog posts are written in Markdown and stored in the [src/pages/posts/](src/pages/posts/) directory.
+Blog posts are written in Markdown and stored in:
 
-### Step 1: Create a New Markdown File
+- `src/content/posts/pt-br/` — Portuguese posts
+- `src/content/posts/en/` — English posts
 
-Create a new `.md` file in [src/pages/posts/](src/pages/posts/) with a descriptive filename:
+### Frontmatter
 
-```bash
-src/pages/posts/my-new-post.md
-```
-
-### Step 2: Add Frontmatter
-
-Every post must include frontmatter at the top with the following fields:
+Every post must include frontmatter at the top:
 
 ```markdown
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Your Post Title'
 pubDate: 2024-01-15
 description: 'A brief description of your post for SEO and previews'
-author: 'Your Name'
+author: 'Robert Gleison'
 image:
-    url: 'https://example.com/image.jpg'
-    alt: 'Description of the image'
-tags: ["tag1", "tag2", "tag3"]
+  url: '/post-slug/thumb.png'
+  alt: 'Description of the image'
+tags: ["Tips"]
 ---
 ```
 
-### Frontmatter Fields Explained
+Available tags: `Tips`, `Data Engineering`, `DevOps`, `Software Engineering`
 
-- **layout** (required): Must be `../../layouts/MarkdownPostLayout.astro`
-- **title** (required): The post title displayed on cards and the post page
-- **pubDate** (required): Publication date in YYYY-MM-DD format
-- **description** (required): Brief summary for SEO and post cards
-- **author** (optional): Author name
-- **image** (optional): Featured image with `url` and `alt` text
-- **tags** (required): Array of tags for categorization and filtering
+### Claude Code Skills
 
-### Step 3: Write Your Content
-Just write the content
+This project includes Claude Code skills to help write and manage posts:
 
+| Command | Action |
+| :-- | :-- |
+| `/create-post-template` | Scaffold a new blog post |
+| `/review-post` | Review a post for structure, content, and style issues |
+| `/translate-post-pt-to-en` | Translate a post from Portuguese to English |
+| `/translate-post-en-to-pt` | Translate a post from English to Portuguese |
 
-## Tools Used
-- Carbon: images of your source code
-- Gemini: images for post thumbnails
-- Draw.io: handmade fluxograms
+Skills are located in `.claude/skills/`.
+
+# Site
+![Home page - dark theme](src/assets/home-dark.png)
+![Posts page - dark theme](src/assets/posts-dark.png)
+![Home page - light theme](src/assets/home-light.png)
+![Posts page - light theme](src/assets/posts-light.png)
