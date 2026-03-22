@@ -7,7 +7,7 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 export default defineConfig({
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'pt'],
+    locales: ['en', 'pt-br'],
     routing: {
       prefixDefaultLocale: true,
     },
